@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Andrew Dolan Music</title>
+    <meta name="description" content="Official website for Andrew Dolan Music. Listen to Rockstown, watch live videos, browse photos, and follow Andrew online.">
+    <meta property="og:title" content="Andrew Dolan Music">
+    <meta property="og:description" content="Official website for Andrew Dolan Music.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="assets/hero-performance.jpg">
+    <link rel="preload" href="assets/hero-performance.jpg" as="image">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="scroll-progress" aria-hidden="true"><span></span></div>
+    <header class="site-header" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="Andrew Dolan Music home">
+        <span class="brand-mark">
+          <img src="assets/artist-profile.jpg" alt="" width="381" height="456">
+        </span>
+        <span>Andrew Dolan Music</span>
+      </a>
+      <nav class="nav-links" aria-label="Site sections">
+        <a href="#music">Music</a>
+        <a href="#video">Video</a>
+        <a href="#gallery">Photos</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <picture class="hero-media">
+          <img src="assets/hero-performance.jpg" alt="Andrew Dolan performing live on stage" width="1170" height="588">
+        </picture>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <p class="eyebrow">Official artist site</p>
+          <h1 id="hero-title">Andrew Dolan</h1>
+          <p class="hero-copy" data-content="tagline"></p>
+          <div class="hero-actions" data-social-actions></div>
+        </div>
+        <a class="hero-next" href="#music" aria-label="Go to featured music"><span></span></a>
+      </section>
+
+      <nav class="chapter-strip" aria-label="Featured page sections">
+        <a href="#music">
+          Rockstown
+        </a>
+        <a href="#video">
+          Acoustic video
+        </a>
+        <a href="#gallery">
+          Live photos
+        </a>
+      </nav>
+
+      <section class="intro-section flow-in" aria-label="Artist introduction">
+        <div class="intro-copy">
+          <p class="section-kicker">Music, shows and stories</p>
+          <h2>Songs with the feel of a live room.</h2>
+          <p>Andrew's songs sit close to the listener: direct vocals, warm acoustic textures and the kind of storytelling that belongs in the room.</p>
+        </div>
+        <img class="artist-card-image" src="assets/artist-profile.jpg" alt="Andrew Dolan artist profile image" width="381" height="456">
+      </section>
+
+      <section class="music-section flow-in" id="music" aria-labelledby="music-title">
+        <div class="section-heading">
+          <p class="section-kicker">Featured release</p>
+          <h2 id="music-title">Rockstown</h2>
+        </div>
+        <article class="release-panel">
+          <div class="release-artwork">
+            <img src="assets/rockstown-cover.jpg" alt="Rockstown cover artwork" width="640" height="640">
+          </div>
+          <div>
+            <p class="eyebrow">Spotlight track</p>
+            <h3 data-track-title></h3>
+            <p data-track-artist></p>
+            <a class="button primary" data-track-link target="_blank" rel="noopener">Listen on Spotify</a>
+            <div class="spotify-embed" data-spotify-embed></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="performance-bridge flow-in" aria-label="Live performance">
+        <img src="assets/gallery-live-room.jpg" alt="Andrew Dolan performing in a live room" width="585" height="438">
+        <div>
+          <p class="section-kicker">From record to room</p>
+          <h2>The songs carry from the recording into the performance.</h2>
+          <p>Live footage and acoustic takes keep the focus on the voice, the guitar and the connection with the audience.</p>
+        </div>
+      </section>
+
+      <section class="video-section flow-in" id="video" aria-labelledby="video-title">
+        <div class="video-layout">
+          <div class="section-heading">
+            <p class="section-kicker">Watch</p>
+            <h2 id="video-title">White Feather Acoustic Version</h2>
+            <p class="section-copy">A stripped-back performance of White Feather, led by the song and the room around it.</p>
+          </div>
+          <div class="video-frame" data-video-frame></div>
+        </div>
+      </section>
+
+      <section class="conditional-section flow-in" id="tour" data-tour-section hidden>
+        <div class="section-heading">
+          <p class="section-kicker">Live</p>
+          <h2>Tour Dates</h2>
+        </div>
+        <div class="tour-list" data-tour-list></div>
+      </section>
+
+      <section class="conditional-section flow-in" id="merch" data-merch-section hidden>
+        <div class="section-heading">
+          <p class="section-kicker">Store</p>
+          <h2>Merch</h2>
+        </div>
+        <a class="button secondary" data-merch-link target="_blank" rel="noopener"></a>
+      </section>
+
+      <section class="gallery-section flow-in" id="gallery" aria-labelledby="gallery-title">
+        <div class="section-heading">
+          <p class="section-kicker">Photos</p>
+          <h2 id="gallery-title">Live and behind the songs</h2>
+        </div>
+        <div class="gallery-grid" data-gallery></div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="contact">
+      <div>
+        <p class="section-kicker">Andrew Dolan Music</p>
+        <h2>Listen, watch, follow.</h2>
+      </div>
+      <div class="footer-links" data-footer-links></div>
+    </footer>
+
+    <script src="site-data.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
