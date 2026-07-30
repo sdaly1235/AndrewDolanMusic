@@ -74,6 +74,20 @@
     return link;
   }
 
+  function assetLink(path, label, variant = "secondary", ariaLabel = "") {
+    const safePath = safeAssetPath(path);
+    if (!safePath) return null;
+
+    const link = document.createElement("a");
+    link.className = `button ${variant}`;
+    link.href = safePath;
+    link.textContent = label;
+    if (ariaLabel) {
+      link.setAttribute("aria-label", ariaLabel);
+    }
+    return link;
+  }
+
   function renderSocialLinks(container, primaryFirst = false) {
     if (!container || !data.socialLinks) return;
 
@@ -199,6 +213,11 @@
     image.src = imagePath;
     image.alt = item.alt || "";
     image.loading = "lazy";
+    image.decoding = "async";
+    if (Number.isInteger(item.width) && Number.isInteger(item.height)) {
+      image.width = item.width;
+      image.height = item.height;
+    }
     figure.appendChild(image);
 
     if (item.caption) {
@@ -209,6 +228,29 @@
 
     gallery.appendChild(figure);
   });
+
+  const pressKit = data.pressKit || {};
+  const pressPhoto = document.querySelector("[data-press-photo]");
+  const safePressPhoto = safeAssetPath(pressKit.pressPhoto);
+  if (pressPhoto && safePressPhoto) {
+    pressPhoto.src = safePressPhoto;
+  }
+  setText("[data-press-bio]", pressKit.bio);
+  setText("[data-press-artist]", data.artistName);
+  setText("[data-press-location]", pressKit.location);
+  setText("[data-press-release]", featuredTrack.title);
+
+  const pressLinks = document.querySelector("[data-press-links]");
+  if (pressLinks && Array.isArray(pressKit.links)) {
+    pressKit.links.forEach((item, index) => {
+      const link = safeAssetPath(item.url)
+        ? assetLink(item.url, item.label, index === 0 ? "primary" : "secondary", item.ariaLabel || `${item.label} for Andrew Dolan Music`)
+        : externalLink(item.url, item.label, index === 0 ? "primary" : "secondary", item.ariaLabel || "");
+      if (link) {
+        pressLinks.appendChild(link);
+      }
+    });
+  }
 
   const footerLinks = document.querySelector("[data-footer-links]");
   renderSocialLinks(footerLinks, true);

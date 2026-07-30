@@ -35,11 +35,15 @@
         ]
       }
     </script>
-    <link rel="icon" type="image/png" href="assets/andrewdolanmusic-logo.png">
+    <link rel="icon" href="assets/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" href="assets/favicon-32x32.png" sizes="32x32">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
     <link rel="preload" href="assets/hero-performance.jpg" as="image">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <span id="top" class="page-anchor" aria-hidden="true"></span>
     <div class="scroll-progress" aria-hidden="true"><span></span></div>
     <header class="site-header" aria-label="Primary navigation">
       <a class="brand" href="#top" aria-label="Andrew Dolan Music home">
@@ -52,11 +56,12 @@
         <a href="#music">Music</a>
         <a href="#video">Video</a>
         <a href="#gallery">Photos</a>
+        <a href="#press">Press</a>
         <a href="#contact">Contact</a>
       </nav>
     </header>
 
-    <main id="top">
+    <main id="main-content">
       <section class="hero" aria-labelledby="hero-title">
         <picture class="hero-media">
           <img src="assets/hero-performance.jpg" alt="Andrew Dolan performing live on stage" width="1170" height="588">
@@ -153,6 +158,34 @@
           <h2 id="gallery-title">Live and behind the songs</h2>
         </div>
         <div class="gallery-grid" data-gallery></div>
+      </section>
+
+      <section class="press-section flow-in" id="press" aria-labelledby="press-title">
+        <div class="section-heading">
+          <p class="section-kicker">Press kit</p>
+          <h2 id="press-title">For venues, promoters and media.</h2>
+        </div>
+        <div class="press-layout">
+          <img data-press-photo src="assets/artist-profile.jpg" alt="Andrew Dolan press photo" width="381" height="456">
+          <div class="press-copy">
+            <p data-press-bio></p>
+            <dl class="press-facts">
+              <div>
+                <dt>Artist</dt>
+                <dd data-press-artist></dd>
+              </div>
+              <div>
+                <dt>Based in</dt>
+                <dd data-press-location></dd>
+              </div>
+              <div>
+                <dt>Featured release</dt>
+                <dd data-press-release></dd>
+              </div>
+            </dl>
+            <div class="press-links" data-press-links></div>
+          </div>
+        </div>
       </section>
     </main>
 

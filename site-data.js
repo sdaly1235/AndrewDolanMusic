@@ -19,6 +19,28 @@ window.siteData = {
     embedUrl: "https://www.youtube.com/embed/AMx1XLXcnh4",
     thumbnail: "assets/white-feather-thumb.jpg"
   },
+  pressKit: {
+    bio: "Andrew Dolan is an Irish singer-songwriter writing intimate, roots-led songs built around direct vocals, warm acoustic textures and live-room storytelling.",
+    location: "Ireland",
+    pressPhoto: "assets/artist-profile.jpg",
+    links: [
+      {
+        label: "Artist photo",
+        ariaLabel: "Open Andrew Dolan Music press photo",
+        url: "assets/artist-profile.jpg"
+      },
+      {
+        label: "Spotify profile",
+        ariaLabel: "Andrew Dolan on Spotify",
+        url: "https://open.spotify.com/artist/74Vq2yie9cISoNQCZJ2Esn"
+      },
+      {
+        label: "Instagram",
+        ariaLabel: "Andrew Dolan Music on Instagram",
+        url: "https://www.instagram.com/andrewdolanmusic"
+      }
+    ]
+  },
   tourDates: [
     {
       date: "TBA",
@@ -46,40 +68,56 @@ window.siteData = {
   gallery: [
     {
       image: "assets/gallery-stage-wide.png",
+      width: 1170,
+      height: 588,
       alt: "Andrew Dolan performing on stage under warm lighting",
       caption: "Live performance"
     },
     {
       image: "assets/gallery-band-wide.jpg",
+      width: 593,
+      height: 315,
       alt: "Andrew Dolan and band performing together"
     },
     {
       image: "assets/gallery-live-room.jpg",
+      width: 585,
+      height: 438,
       alt: "Andrew Dolan performing in an intimate venue",
       caption: "In the room"
     },
     {
       image: "assets/gallery-performance-01.jpg",
+      width: 240,
+      height: 320,
       alt: "Andrew Dolan singing into a microphone",
       caption: "On stage"
     },
     {
       image: "assets/gallery-portrait-01.jpg",
+      width: 240,
+      height: 320,
       alt: "Portrait of Andrew Dolan with guitar",
       caption: "Portrait"
     },
     {
       image: "assets/gallery-portrait-02.jpg",
+      width: 240,
+      height: 320,
       alt: "Andrew Dolan portrait from a live session",
       caption: "Session"
     },
     {
       image: "assets/gallery-portrait-03.jpg",
+      width: 180,
+      height: 320,
       alt: "Andrew Dolan acoustic performance portrait",
       caption: "Acoustic"
     },
     {
       image: "assets/gallery-performance-02.jpg",
+      width: 320,
+      height: 240,
       alt: "Andrew Dolan performing for an audience",
       caption: "Performance"
     }
