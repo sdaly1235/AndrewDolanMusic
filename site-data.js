@@ -2,9 +2,9 @@ window.siteData = {
   artistName: "Andrew Dolan",
   tagline: "Irish singer-songwriter building intimate, roots-led songs for live rooms and late nights.",
   socialLinks: {
-    spotifyArtist: "https://open.spotify.com/artist/74Vq2yie9cISoNQCZJ2Esn?si=I0FnGq2pQ1qrBYfCFkGdiA",
-    instagram: "https://www.instagram.com/andrewdolanmusic?utm_source=qr",
-    linktree: "https://linktr.ee/andrewdolanmusic?utm_source=linktree_profile_share&ltsid=36ecb5f1-4338-499f-8b8f-013a0f89235c"
+    spotifyArtist: "https://open.spotify.com/artist/74Vq2yie9cISoNQCZJ2Esn",
+    instagram: "https://www.instagram.com/andrewdolanmusic",
+    linktree: "https://linktr.ee/andrewdolanmusic"
   },
   featuredTrack: {
     title: "Rockstown",

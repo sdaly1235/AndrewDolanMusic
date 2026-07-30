@@ -7,7 +7,44 @@
     window.scrollTo(0, 0);
   }
 
-  const data = window.siteData;
+  const data = window.siteData || {};
+
+  const allowedExternalHosts = new Set([
+    "open.spotify.com",
+    "www.instagram.com",
+    "instagram.com",
+    "linktr.ee",
+    "www.youtube.com",
+    "youtube.com",
+    "youtu.be"
+  ]);
+
+  function safeExternalUrl(value) {
+    try {
+      const url = new URL(value);
+      if (url.protocol !== "https:" || !allowedExternalHosts.has(url.hostname)) {
+        return "";
+      }
+      return url.href;
+    } catch (_) {
+      return "";
+    }
+  }
+
+  function safeAssetPath(value) {
+    if (typeof value !== "string") return "";
+    if (!/^assets\/[\w./-]+\.(jpe?g|png|webp|gif)$/i.test(value)) return "";
+    if (value.includes("..") || value.includes("//")) return "";
+    return value;
+  }
+
+  function setText(selector, value) {
+    const element = document.querySelector(selector);
+    if (element) {
+      element.textContent = value || "";
+    }
+    return element;
+  }
 
   const socialLabels = {
     spotifyArtist: "Spotify",
@@ -15,20 +52,41 @@
     linktree: "Linktree"
   };
 
-  function externalLink(href, label, variant = "secondary") {
+  const socialAriaLabels = {
+    spotifyArtist: "Andrew Dolan on Spotify",
+    instagram: "Andrew Dolan Music on Instagram",
+    linktree: "Andrew Dolan Music links on Linktree"
+  };
+
+  function externalLink(href, label, variant = "secondary", ariaLabel = "") {
+    const safeHref = safeExternalUrl(href);
+    if (!safeHref) return null;
+
     const link = document.createElement("a");
     link.className = `button ${variant}`;
-    link.href = href;
+    link.href = safeHref;
     link.target = "_blank";
-    link.rel = "noopener";
+    link.rel = "noopener noreferrer";
     link.textContent = label;
+    if (ariaLabel) {
+      link.setAttribute("aria-label", ariaLabel);
+    }
     return link;
   }
 
   function renderSocialLinks(container, primaryFirst = false) {
+    if (!container || !data.socialLinks) return;
+
     Object.entries(data.socialLinks).forEach(([key, href], index) => {
-      if (!href) return;
-      container.appendChild(externalLink(href, socialLabels[key] || key, primaryFirst && index === 0 ? "primary" : "secondary"));
+      const link = externalLink(
+        href,
+        socialLabels[key] || key,
+        primaryFirst && index === 0 ? "primary" : "secondary",
+        socialAriaLabels[key] || ""
+      );
+      if (link) {
+        container.appendChild(link);
+      }
     });
   }
 
@@ -40,34 +98,48 @@
     updateFlowSections();
   }
 
-  document.querySelector('[data-content="tagline"]').textContent = data.tagline;
+  setText('[data-content="tagline"]', data.tagline);
 
   const heroActions = document.querySelector("[data-social-actions]");
   renderSocialLinks(heroActions, true);
 
-  document.querySelector("[data-track-title]").textContent = data.featuredTrack.title;
-  document.querySelector("[data-track-artist]").textContent = data.featuredTrack.artist;
+  const featuredTrack = data.featuredTrack || {};
+  setText("[data-track-title]", featuredTrack.title);
+  setText("[data-track-artist]", featuredTrack.artist);
   const trackLink = document.querySelector("[data-track-link]");
-  trackLink.href = data.featuredTrack.spotifyUrl;
-  trackLink.setAttribute("aria-label", `Listen to ${data.featuredTrack.title} on Spotify`);
+  const safeTrackUrl = safeExternalUrl(featuredTrack.spotifyUrl);
+  if (trackLink && safeTrackUrl) {
+    trackLink.href = safeTrackUrl;
+    trackLink.setAttribute("aria-label", `Listen to ${featuredTrack.title || "the featured track"} on Spotify`);
+  } else if (trackLink) {
+    trackLink.hidden = true;
+  }
 
   const spotifyEmbed = document.querySelector("[data-spotify-embed]");
-  if (spotifyEmbed && data.featuredTrack.spotifyEmbedUrl) {
+  const safeSpotifyEmbedUrl = safeExternalUrl(featuredTrack.spotifyEmbedUrl);
+  if (spotifyEmbed && safeSpotifyEmbedUrl) {
     const spotifyFrame = document.createElement("iframe");
-    spotifyFrame.src = data.featuredTrack.spotifyEmbedUrl;
-    spotifyFrame.title = `${data.featuredTrack.title} on Spotify`;
+    spotifyFrame.src = safeSpotifyEmbedUrl;
+    spotifyFrame.title = `${featuredTrack.title || "Featured track"} on Spotify`;
     spotifyFrame.loading = "lazy";
+    spotifyFrame.referrerPolicy = "strict-origin-when-cross-origin";
     spotifyFrame.allow = "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture";
     spotifyEmbed.appendChild(spotifyFrame);
   }
 
   const videoFrame = document.querySelector("[data-video-frame]");
-  const iframe = document.createElement("iframe");
-  iframe.src = data.featuredVideo.embedUrl;
-  iframe.title = data.featuredVideo.title;
-  iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-  iframe.allowFullscreen = true;
-  videoFrame.appendChild(iframe);
+  const featuredVideo = data.featuredVideo || {};
+  const safeVideoEmbedUrl = safeExternalUrl(featuredVideo.embedUrl);
+  if (videoFrame && safeVideoEmbedUrl) {
+    const iframe = document.createElement("iframe");
+    iframe.src = safeVideoEmbedUrl;
+    iframe.title = featuredVideo.title || "Featured video";
+    iframe.loading = "lazy";
+    iframe.referrerPolicy = "strict-origin-when-cross-origin";
+    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+    iframe.allowFullscreen = true;
+    videoFrame.appendChild(iframe);
+  }
 
   const tourSection = document.querySelector("[data-tour-section]");
   const tourList = document.querySelector("[data-tour-list]");
@@ -76,15 +148,23 @@
     data.tourDates.forEach((show) => {
       const item = document.createElement("article");
       item.className = "tour-item";
-      item.innerHTML = `
-        <strong>${show.date}</strong>
-        <div>
-          <h3>${show.venue}</h3>
-          <p>${show.location}</p>
-        </div>
-      `;
+      const date = document.createElement("strong");
+      date.textContent = show.date || "";
+
+      const details = document.createElement("div");
+      const venue = document.createElement("h3");
+      venue.textContent = show.venue || "";
+      const location = document.createElement("p");
+      location.textContent = show.location || "";
+
+      details.append(venue, location);
+      item.append(date, details);
+
       if (show.ticketUrl) {
-        item.appendChild(externalLink(show.ticketUrl, "Tickets", "primary"));
+        const ticketLink = externalLink(show.ticketUrl, "Tickets", "primary");
+        if (ticketLink) {
+          item.appendChild(ticketLink);
+        }
       }
       tourList.appendChild(item);
     });
@@ -95,8 +175,9 @@
   if (data.merch && data.merch.label) {
     merchSection.hidden = false;
     merchLink.textContent = data.merch.label;
-    if (data.merch.url) {
-      merchLink.href = data.merch.url;
+    const safeMerchUrl = safeExternalUrl(data.merch.url);
+    if (safeMerchUrl) {
+      merchLink.href = safeMerchUrl;
     } else {
       merchLink.removeAttribute("href");
       merchLink.removeAttribute("target");
@@ -107,13 +188,16 @@
   }
 
   const gallery = document.querySelector("[data-gallery]");
-  data.gallery.forEach((item) => {
+  if (gallery && Array.isArray(data.gallery)) data.gallery.forEach((item) => {
+    const imagePath = safeAssetPath(item.image);
+    if (!imagePath) return;
+
     const figure = document.createElement("figure");
     figure.className = "gallery-item";
 
     const image = document.createElement("img");
-    image.src = item.image;
-    image.alt = item.alt;
+    image.src = imagePath;
+    image.alt = item.alt || "";
     image.loading = "lazy";
     figure.appendChild(image);
 

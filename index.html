@@ -5,10 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Andrew Dolan Music</title>
     <meta name="description" content="Official website for Andrew Dolan Music. Listen to Rockstown, watch live videos, browse photos, and follow Andrew online.">
+    <meta name="author" content="Andrew Dolan Music">
+    <meta name="robots" content="index, follow">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'sha256-iNMEAXwRGLvozENifmNJHvIrzGCSyscRnMJbv4c1vnA='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-src https://open.spotify.com https://www.youtube.com; form-action 'none'; upgrade-insecure-requests">
+    <link rel="canonical" href="https://andrewdolanmusic.com/">
     <meta property="og:title" content="Andrew Dolan Music">
-    <meta property="og:description" content="Official website for Andrew Dolan Music.">
+    <meta property="og:description" content="Official website for Andrew Dolan Music. Listen to Rockstown, watch live videos, browse photos, and follow Andrew online.">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="assets/hero-performance.jpg">
+    <meta property="og:url" content="https://andrewdolanmusic.com/">
+    <meta property="og:site_name" content="Andrew Dolan Music">
+    <meta property="og:image" content="https://andrewdolanmusic.com/assets/hero-performance.jpg">
+    <meta property="og:image:alt" content="Andrew Dolan performing live on stage">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Andrew Dolan Music">
+    <meta name="twitter:description" content="Listen to Rockstown, watch live videos, browse photos, and follow Andrew online.">
+    <meta name="twitter:image" content="https://andrewdolanmusic.com/assets/hero-performance.jpg">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "MusicGroup",
+        "name": "Andrew Dolan Music",
+        "url": "https://andrewdolanmusic.com/",
+        "image": "https://andrewdolanmusic.com/assets/hero-performance.jpg",
+        "sameAs": [
+          "https://open.spotify.com/artist/74Vq2yie9cISoNQCZJ2Esn",
+          "https://www.instagram.com/andrewdolanmusic",
+          "https://linktr.ee/andrewdolanmusic"
+        ]
+      }
+    </script>
+    <link rel="icon" type="image/png" href="assets/andrewdolanmusic-logo.png">
     <link rel="preload" href="assets/hero-performance.jpg" as="image">
     <link rel="stylesheet" href="styles.css">
   </head>
@@ -78,7 +105,7 @@
             <p class="eyebrow">Spotlight track</p>
             <h3 data-track-title></h3>
             <p data-track-artist></p>
-            <a class="button primary" data-track-link target="_blank" rel="noopener">Listen on Spotify</a>
+            <a class="button primary" data-track-link target="_blank" rel="noopener noreferrer">Listen on Spotify</a>
             <div class="spotify-embed" data-spotify-embed></div>
           </div>
         </article>
@@ -117,7 +144,7 @@
           <p class="section-kicker">Store</p>
           <h2>Merch</h2>
         </div>
-        <a class="button secondary" data-merch-link target="_blank" rel="noopener"></a>
+        <a class="button secondary" data-merch-link target="_blank" rel="noopener noreferrer"></a>
       </section>
 
       <section class="gallery-section flow-in" id="gallery" aria-labelledby="gallery-title">
@@ -137,7 +164,7 @@
       <div class="footer-links" data-footer-links></div>
     </footer>
 
-    <script src="site-data.js"></script>
-    <script src="script.js"></script>
+    <script src="site-data.js" defer></script>
+    <script src="script.js" defer></script>
   </body>
 </html>
