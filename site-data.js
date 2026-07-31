@@ -43,21 +43,23 @@ window.siteData = {
   },
   tourDates: [
     {
-      date: "TBA",
-      venue: "Live dates coming soon",
-      location: "Ireland",
+      date: "Saturday 1st August",
+      isoDate: "2026-08-01",
+      weekday: "Saturday",
+      day: "01",
+      month: "Aug",
+      venue: "Falls Park Feile",
+      location: "Belfast",
       ticketUrl: ""
     },
     {
-      date: "TBA",
-      venue: "Acoustic shows to be announced",
-      location: "More details soon",
-      ticketUrl: ""
-    },
-    {
-      date: "TBA",
-      venue: "Tour information pending",
-      location: "Check back for updates",
+      date: "Sunday 2nd August",
+      isoDate: "2026-08-02",
+      weekday: "Sunday",
+      day: "02",
+      month: "Aug",
+      venue: "INEC",
+      location: "Killarney",
       ticketUrl: ""
     }
   ],

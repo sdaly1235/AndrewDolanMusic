@@ -8,6 +8,44 @@
   }
 
   const data = window.siteData || {};
+  const siteHeader = document.querySelector(".site-header");
+  const navToggle = document.querySelector(".nav-toggle");
+  const navToggleLabel = navToggle ? navToggle.querySelector("span:last-child") : null;
+  const primaryNav = document.querySelector("#primary-nav");
+
+  function closeNavigation() {
+    if (!siteHeader || !navToggle) return;
+    siteHeader.classList.remove("is-menu-open");
+    navToggle.setAttribute("aria-expanded", "false");
+    if (navToggleLabel) navToggleLabel.textContent = "Menu";
+  }
+
+  if (siteHeader && navToggle && primaryNav) {
+    navToggle.addEventListener("click", () => {
+      const isOpen = siteHeader.classList.toggle("is-menu-open");
+      navToggle.setAttribute("aria-expanded", String(isOpen));
+      if (navToggleLabel) navToggleLabel.textContent = isOpen ? "Close" : "Menu";
+    });
+
+    primaryNav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", closeNavigation);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && siteHeader.classList.contains("is-menu-open")) {
+        closeNavigation();
+        navToggle.focus();
+      }
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!siteHeader.contains(event.target)) closeNavigation();
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 780) closeNavigation();
+    });
+  }
 
   const allowedExternalHosts = new Set([
     "open.spotify.com",
@@ -162,10 +200,35 @@
     data.tourDates.forEach((show) => {
       const item = document.createElement("article");
       item.className = "tour-item";
-      const date = document.createElement("strong");
-      date.textContent = show.date || "";
+
+      const date = document.createElement("time");
+      date.className = "tour-date";
+      date.setAttribute("aria-label", show.date || "");
+      if (show.isoDate) date.dateTime = show.isoDate;
+
+      if (show.day && show.month) {
+        const weekday = document.createElement("span");
+        weekday.className = "tour-weekday";
+        weekday.textContent = show.weekday || "";
+
+        const day = document.createElement("span");
+        day.className = "tour-day";
+        day.textContent = show.day;
+
+        const month = document.createElement("span");
+        month.className = "tour-month";
+        month.textContent = show.month;
+
+        date.append(weekday, day, month);
+      } else {
+        const fullDate = document.createElement("span");
+        fullDate.className = "tour-date-full";
+        fullDate.textContent = show.date || "";
+        date.appendChild(fullDate);
+      }
 
       const details = document.createElement("div");
+      details.className = "tour-details";
       const venue = document.createElement("h3");
       venue.textContent = show.venue || "";
       const location = document.createElement("p");
