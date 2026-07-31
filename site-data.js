@@ -48,7 +48,7 @@ window.siteData = {
       weekday: "Saturday",
       day: "01",
       month: "Aug",
-      venue: "Falls Park Feile",
+      venue: "Falls Park Féile",
       location: "Belfast",
       ticketUrl: ""
     },
