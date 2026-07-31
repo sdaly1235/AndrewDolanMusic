@@ -69,17 +69,11 @@ window.siteData = {
   },
   gallery: [
     {
-      image: "assets/gallery-stage-wide.png",
-      width: 1170,
-      height: 588,
-      alt: "Andrew Dolan performing on stage under warm lighting",
-      caption: "Live performance"
-    },
-    {
       image: "assets/gallery-band-wide.jpg",
       width: 593,
       height: 315,
-      alt: "Andrew Dolan and band performing together"
+      alt: "Andrew Dolan playing guitar with the band",
+      caption: "Live with the band"
     },
     {
       image: "assets/gallery-live-room.jpg",
@@ -115,13 +109,6 @@ window.siteData = {
       height: 320,
       alt: "Andrew Dolan acoustic performance portrait",
       caption: "Acoustic"
-    },
-    {
-      image: "assets/gallery-performance-02.jpg",
-      width: 320,
-      height: 240,
-      alt: "Andrew Dolan performing for an audience",
-      caption: "Performance"
     }
   ]
 };

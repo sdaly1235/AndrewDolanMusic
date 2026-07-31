@@ -10,26 +10,28 @@
   const data = window.siteData || {};
   const siteHeader = document.querySelector(".site-header");
   const navToggle = document.querySelector(".nav-toggle");
-  const navToggleLabel = navToggle ? navToggle.querySelector("span:last-child") : null;
   const primaryNav = document.querySelector("#primary-nav");
 
   function closeNavigation() {
     if (!siteHeader || !navToggle) return;
     siteHeader.classList.remove("is-menu-open");
     navToggle.setAttribute("aria-expanded", "false");
-    if (navToggleLabel) navToggleLabel.textContent = "Menu";
+    navToggle.setAttribute("aria-label", "Open navigation menu");
   }
 
   if (siteHeader && navToggle && primaryNav) {
     navToggle.addEventListener("click", () => {
       const isOpen = siteHeader.classList.toggle("is-menu-open");
       navToggle.setAttribute("aria-expanded", String(isOpen));
-      if (navToggleLabel) navToggleLabel.textContent = isOpen ? "Close" : "Menu";
+      navToggle.setAttribute("aria-label", isOpen ? "Close navigation menu" : "Open navigation menu");
     });
 
     primaryNav.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", closeNavigation);
     });
+
+    const brandLink = siteHeader.querySelector(".brand");
+    if (brandLink) brandLink.addEventListener("click", closeNavigation);
 
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape" && siteHeader.classList.contains("is-menu-open")) {
@@ -147,7 +149,6 @@
     const progress = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
     document.documentElement.style.setProperty("--scroll-progress", `${Math.min(progress, 100)}%`);
     document.body.classList.toggle("is-scrolled", window.scrollY > 24);
-    updateFlowSections();
   }
 
   setText('[data-content="tagline"]', data.tagline);
@@ -249,19 +250,11 @@
 
   const merchSection = document.querySelector("[data-merch-section]");
   const merchLink = document.querySelector("[data-merch-link]");
-  if (data.merch && data.merch.label) {
+  const safeMerchUrl = data.merch ? safeExternalUrl(data.merch.url) : "";
+  if (data.merch && data.merch.label && safeMerchUrl) {
     merchSection.hidden = false;
     merchLink.textContent = data.merch.label;
-    const safeMerchUrl = safeExternalUrl(data.merch.url);
-    if (safeMerchUrl) {
-      merchLink.href = safeMerchUrl;
-    } else {
-      merchLink.removeAttribute("href");
-      merchLink.removeAttribute("target");
-      merchLink.removeAttribute("rel");
-      merchLink.setAttribute("aria-disabled", "true");
-      merchLink.classList.add("is-disabled");
-    }
+    merchLink.href = safeMerchUrl;
   }
 
   const gallery = document.querySelector("[data-gallery]");
@@ -321,26 +314,18 @@
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const flowSections = document.querySelectorAll(".flow-in");
 
-  function updateFlowSections() {
-    if (reduceMotion) return;
-
-    const resetZone = Math.min(window.innerHeight * 0.62, 520);
-    if (window.scrollY < resetZone) {
-      flowSections.forEach((section) => section.classList.remove("is-visible"));
-      return;
-    }
-
-    const revealLine = window.innerHeight * 0.84;
-    const resetLine = window.innerHeight * 0.08;
-
-    flowSections.forEach((section) => {
-      const rect = section.getBoundingClientRect();
-      const shouldShow = rect.top < revealLine && rect.bottom > resetLine;
-      section.classList.toggle("is-visible", shouldShow);
-    });
-  }
-
   if (reduceMotion) {
+    flowSections.forEach((section) => section.classList.add("is-visible"));
+  } else if ("IntersectionObserver" in window) {
+    const flowObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      });
+    }, { rootMargin: "0px 0px -10%", threshold: 0.08 });
+    flowSections.forEach((section) => flowObserver.observe(section));
+  } else {
     flowSections.forEach((section) => section.classList.add("is-visible"));
   }
 
