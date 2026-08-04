@@ -41,28 +41,7 @@ window.siteData = {
       }
     ]
   },
-  tourDates: [
-    {
-      date: "Saturday 1st August",
-      isoDate: "2026-08-01",
-      weekday: "Saturday",
-      day: "01",
-      month: "Aug",
-      venue: "Falls Park Féile",
-      location: "Belfast",
-      ticketUrl: ""
-    },
-    {
-      date: "Sunday 2nd August",
-      isoDate: "2026-08-02",
-      weekday: "Sunday",
-      day: "02",
-      month: "Aug",
-      venue: "INEC",
-      location: "Killarney",
-      ticketUrl: ""
-    }
-  ],
+  tourDates: [],
   merch: {
     label: "Merch coming soon",
     url: ""
