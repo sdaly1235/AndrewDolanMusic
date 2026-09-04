@@ -53,10 +53,21 @@
     "open.spotify.com",
     "www.instagram.com",
     "instagram.com",
+    "www.facebook.com",
+    "facebook.com",
+    "www.tiktok.com",
+    "tiktok.com",
     "linktr.ee",
+    "music.apple.com",
     "www.youtube.com",
     "youtube.com",
-    "youtu.be"
+    "youtu.be",
+    "www.ganjingworld.com",
+    "ganjingworld.com",
+    "www.concertarchives.org",
+    "concertarchives.org",
+    "www.tyronecon.co.uk",
+    "tyronecon.co.uk"
   ]);
 
   function safeExternalUrl(value) {
@@ -95,12 +106,16 @@
   const socialLabels = {
     spotifyArtist: "Spotify",
     instagram: "Instagram",
+    facebook: "Facebook",
+    tiktok: "TikTok",
     linktree: "Linktree"
   };
 
   const socialAriaLabels = {
     spotifyArtist: "Andrew Dolan on Spotify",
     instagram: "Andrew Dolan Music on Instagram",
+    facebook: "Andrew Dolan Music on Facebook",
+    tiktok: "Andrew Dolan on TikTok",
     linktree: "Andrew Dolan Music links on Linktree"
   };
 
@@ -134,10 +149,27 @@
     return link;
   }
 
-  function renderSocialLinks(container, primaryFirst = false) {
+  function externalTextLink(href, label, ariaLabel = "") {
+    const safeHref = safeExternalUrl(href);
+    if (!safeHref) return null;
+
+    const link = document.createElement("a");
+    link.className = "text-link";
+    link.href = safeHref;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = label;
+    if (ariaLabel) link.setAttribute("aria-label", ariaLabel);
+    return link;
+  }
+
+  function renderSocialLinks(container, primaryFirst = false, includedKeys = null) {
     if (!container || !data.socialLinks) return;
 
-    Object.entries(data.socialLinks).forEach(([key, href], index) => {
+    const entries = Object.entries(data.socialLinks)
+      .filter(([key]) => !includedKeys || includedKeys.includes(key));
+
+    entries.forEach(([key, href], index) => {
       const link = externalLink(
         href,
         socialLabels[key] || key,
@@ -159,12 +191,31 @@
 
   setText('[data-content="tagline"]', data.tagline);
 
-  const heroActions = document.querySelector("[data-social-actions]");
-  renderSocialLinks(heroActions, true);
-
   const featuredTrack = data.featuredTrack || {};
+  const heroActions = document.querySelector("[data-social-actions]");
+  if (heroActions) {
+    const featuredLink = externalLink(
+      featuredTrack.spotifyUrl,
+      `Listen to ${featuredTrack.title || "the new single"}`,
+      "primary",
+      `Listen to ${featuredTrack.title || "the new single"} on Spotify`
+    );
+    if (featuredLink) heroActions.appendChild(featuredLink);
+    renderSocialLinks(heroActions, false, ["instagram"]);
+  }
+
+  setText("[data-track-heading]", featuredTrack.title);
   setText("[data-track-title]", featuredTrack.title);
-  setText("[data-track-artist]", featuredTrack.artist);
+  setText("[data-track-meta]", [featuredTrack.releaseDate, featuredTrack.duration].filter(Boolean).join(" · "));
+  setText("[data-track-description]", featuredTrack.description);
+  setText("[data-release-lyric]", featuredTrack.lyric);
+
+  const trackCover = document.querySelector("[data-track-cover]");
+  const safeTrackCover = safeAssetPath(featuredTrack.cover);
+  if (trackCover && safeTrackCover) {
+    trackCover.src = safeTrackCover;
+    trackCover.alt = `${featuredTrack.title || "Featured release"} cover artwork`;
+  }
   const trackLink = document.querySelector("[data-track-link]");
   const safeTrackUrl = safeExternalUrl(featuredTrack.spotifyUrl);
   if (trackLink && safeTrackUrl) {
@@ -184,6 +235,82 @@
     spotifyFrame.referrerPolicy = "strict-origin-when-cross-origin";
     spotifyFrame.allow = "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture";
     spotifyEmbed.appendChild(spotifyFrame);
+  }
+
+  const discography = document.querySelector("[data-discography]");
+  if (discography && Array.isArray(data.discography)) {
+    data.discography.forEach((release) => {
+      const card = document.createElement("article");
+      card.className = `discography-card${release.featured ? " is-featured" : ""}`;
+
+      const meta = document.createElement("p");
+      meta.className = "card-meta";
+      meta.textContent = [release.type, release.date].filter(Boolean).join(" · ");
+
+      const title = document.createElement("h4");
+      title.textContent = release.title || "Release";
+
+      const linkLabel = safeExternalUrl(release.url).includes("music.apple.com")
+        ? "Listen on Apple Music"
+        : "Listen on Spotify";
+      const link = externalTextLink(release.url, linkLabel, `${linkLabel}: ${release.title || "release"}`);
+
+      card.append(meta, title);
+      if (link) card.appendChild(link);
+      discography.appendChild(card);
+    });
+  }
+
+  const campaignGrid = document.querySelector("[data-release-campaign]");
+  if (campaignGrid && Array.isArray(data.releaseCampaign)) {
+    data.releaseCampaign.forEach((moment) => {
+      const card = document.createElement("article");
+      card.className = "campaign-card";
+
+      const kicker = document.createElement("p");
+      kicker.className = "card-kicker";
+      kicker.textContent = moment.kicker || "Release story";
+
+      const date = document.createElement("time");
+      date.className = "card-date";
+      date.textContent = moment.date || "";
+      if (moment.isoDate) date.dateTime = moment.isoDate;
+
+      const title = document.createElement("h3");
+      title.textContent = moment.title || "";
+
+      const description = document.createElement("p");
+      description.textContent = moment.description || "";
+
+      const link = externalTextLink(moment.url, moment.linkLabel || "View update", moment.title || "View release update");
+      card.append(kicker, date, title, description);
+      if (link) card.appendChild(link);
+      campaignGrid.appendChild(card);
+    });
+  }
+
+  const highlightsGrid = document.querySelector("[data-highlights]");
+  if (highlightsGrid && Array.isArray(data.recentHighlights)) {
+    data.recentHighlights.forEach((highlight) => {
+      const card = document.createElement("article");
+      card.className = "highlight-card";
+
+      const date = document.createElement("time");
+      date.className = "card-date";
+      date.textContent = highlight.date || "";
+      if (highlight.isoDate) date.dateTime = highlight.isoDate;
+
+      const title = document.createElement("h3");
+      title.textContent = highlight.title || "";
+
+      const description = document.createElement("p");
+      description.textContent = highlight.description || "";
+
+      const link = externalTextLink(highlight.url, highlight.linkLabel || "Read more", highlight.title || "View live highlight");
+      card.append(date, title, description);
+      if (link) card.appendChild(link);
+      highlightsGrid.appendChild(card);
+    });
   }
 
   const videoFrame = document.querySelector("[data-video-frame]");
@@ -332,6 +459,7 @@
   setText("[data-press-artist]", data.artistName);
   setText("[data-press-location]", pressKit.location);
   setText("[data-press-release]", featuredTrack.title);
+  setText("[data-press-highlight]", pressKit.highlight);
 
   const pressLinks = document.querySelector("[data-press-links]");
   if (pressLinks && Array.isArray(pressKit.links)) {

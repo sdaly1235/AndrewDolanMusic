@@ -3,35 +3,53 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Andrew Dolan Music</title>
-    <meta name="description" content="Official website for Andrew Dolan Music. Listen to Rockstown, watch live videos, browse photos, and follow Andrew online.">
+    <title>Andrew Dolan Music | Where I Wanna Be</title>
+    <meta name="description" content="Official website for Omagh singer-songwriter Andrew Dolan. Listen to the new single Where I Wanna Be, explore the release story, and catch up on recent live highlights.">
     <meta name="author" content="Andrew Dolan Music">
     <meta name="robots" content="index, follow">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'sha256-iNMEAXwRGLvozENifmNJHvIrzGCSyscRnMJbv4c1vnA='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-src https://open.spotify.com https://www.youtube.com; form-action 'none'; upgrade-insecure-requests">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'sha256-TCzfCT7Mq8KqGibu1g4MiiUWgqU5/c4Otn22Hn8mTDI='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-src https://open.spotify.com https://www.youtube.com; form-action 'none'; upgrade-insecure-requests">
     <link rel="canonical" href="https://andrewdolanmusic.com/">
-    <meta property="og:title" content="Andrew Dolan Music">
-    <meta property="og:description" content="Official website for Andrew Dolan Music. Listen to Rockstown, watch live videos, browse photos, and follow Andrew online.">
+    <meta property="og:title" content="Andrew Dolan Music | Where I Wanna Be">
+    <meta property="og:description" content="Listen to Andrew Dolan's new single Where I Wanna Be and follow the story behind the release.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://andrewdolanmusic.com/">
     <meta property="og:site_name" content="Andrew Dolan Music">
-    <meta property="og:image" content="https://andrewdolanmusic.com/assets/hero-performance.jpg">
-    <meta property="og:image:alt" content="Andrew Dolan performing live with guitar">
+    <meta property="og:image" content="https://andrewdolanmusic.com/assets/where-i-wanna-be-cover.jpg">
+    <meta property="og:image:alt" content="Where I Wanna Be cover artwork by Andrew Dolan">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Andrew Dolan Music">
-    <meta name="twitter:description" content="Listen to Rockstown, watch live videos, browse photos, and follow Andrew online.">
-    <meta name="twitter:image" content="https://andrewdolanmusic.com/assets/hero-performance.jpg">
+    <meta name="twitter:title" content="Andrew Dolan Music | Where I Wanna Be">
+    <meta name="twitter:description" content="Listen to Andrew Dolan's new single Where I Wanna Be and follow the story behind the release.">
+    <meta name="twitter:image" content="https://andrewdolanmusic.com/assets/where-i-wanna-be-cover.jpg">
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "MusicGroup",
-        "name": "Andrew Dolan Music",
-        "url": "https://andrewdolanmusic.com/",
-        "image": "https://andrewdolanmusic.com/assets/hero-performance.jpg",
-        "sameAs": [
-          "https://open.spotify.com/artist/74Vq2yie9cISoNQCZJ2Esn",
-          "https://www.instagram.com/andrewdolanmusic",
-          "https://linktr.ee/andrewdolanmusic"
+        "@graph": [
+          {
+            "@type": "MusicGroup",
+            "@id": "https://andrewdolanmusic.com/#artist",
+            "name": "Andrew Dolan",
+            "url": "https://andrewdolanmusic.com/",
+            "image": "https://andrewdolanmusic.com/assets/hero-performance.jpg",
+            "genre": ["Folk", "Singer-songwriter"],
+            "sameAs": [
+              "https://open.spotify.com/artist/74Vq2yie9cISoNQCZJ2Esn",
+              "https://www.instagram.com/andrewdolanmusic",
+              "https://www.facebook.com/people/Andrew-Dolan-Music/100071914937755/",
+              "https://www.tiktok.com/@andrewdolan9",
+              "https://linktr.ee/andrewdolanmusic"
+            ]
+          },
+          {
+            "@type": "MusicRecording",
+            "@id": "https://andrewdolanmusic.com/#where-i-wanna-be",
+            "name": "Where I Wanna Be",
+            "byArtist": { "@id": "https://andrewdolanmusic.com/#artist" },
+            "datePublished": "2026-08-21",
+            "duration": "PT3M20S",
+            "image": "https://andrewdolanmusic.com/assets/where-i-wanna-be-cover.jpg",
+            "url": "https://open.spotify.com/track/42Cjinfjtu9wANRrsWBdOe"
+          }
         ]
       }
     </script>
@@ -61,6 +79,8 @@
       </button>
       <nav class="nav-links" id="primary-nav" aria-label="Site sections">
         <a href="#music">Music</a>
+        <a href="#story">Story</a>
+        <a href="#highlights">Highlights</a>
         <a href="#video">Video</a>
         <a href="#tour" data-section-link="tour" hidden>Live</a>
         <a href="#gallery">Photos</a>
@@ -86,24 +106,24 @@
 
       <nav class="chapter-strip" aria-label="Featured page sections">
         <a href="#music">
-          Rockstown
+          New single
+        </a>
+        <a href="#story">
+          Release story
+        </a>
+        <a href="#highlights">
+          Live highlights
         </a>
         <a href="#video">
-          Acoustic video
-        </a>
-        <a href="#tour" data-section-link="tour" hidden>
-          Live dates
-        </a>
-        <a href="#gallery">
-          Live photos
+          Latest video
         </a>
       </nav>
 
       <section class="intro-section flow-in" aria-label="Artist introduction">
         <div class="intro-copy">
           <p class="section-kicker">Music, shows and stories</p>
-          <h2>Songs with the feel of a live room.</h2>
-          <p>Andrew's songs sit close to the listener: direct vocals, warm acoustic textures and the kind of storytelling that belongs in the room.</p>
+          <h2>From Omagh to bigger stages, the songs stay close.</h2>
+          <p>Andrew's music pairs direct vocals and warm acoustic textures with honest storytelling — equally at home in an intimate coffee shop or a sold-out concert hall.</p>
         </div>
         <img class="artist-card-image" src="assets/artist-profile.jpg" alt="Andrew Dolan artist profile image" width="381" height="456">
       </section>
@@ -111,20 +131,36 @@
       <section class="music-section flow-in" id="music" aria-labelledby="music-title">
         <div class="section-heading">
           <p class="section-kicker">Featured release</p>
-          <h2 id="music-title">Rockstown</h2>
+          <h2 id="music-title" data-track-heading></h2>
         </div>
         <article class="release-panel">
           <div class="release-artwork">
-            <img src="assets/rockstown-cover.jpg" alt="Rockstown cover artwork" width="640" height="640">
+            <img data-track-cover src="assets/where-i-wanna-be-cover.jpg" alt="Where I Wanna Be cover artwork" width="640" height="640">
           </div>
           <div class="release-copy">
             <p class="eyebrow">Spotlight track</p>
             <h3 data-track-title></h3>
-            <p data-track-artist></p>
-            <a class="button primary" data-track-link target="_blank" rel="noopener noreferrer">Listen on Spotify</a>
+            <p class="release-meta" data-track-meta></p>
+            <p class="release-description" data-track-description></p>
+            <a class="button primary" data-track-link target="_blank" rel="noopener noreferrer">Listen to the new single</a>
             <div class="spotify-embed" data-spotify-embed></div>
           </div>
         </article>
+        <div class="discography-heading">
+          <p class="section-kicker">Discography</p>
+          <h3>More songs from Andrew.</h3>
+        </div>
+        <div class="discography-grid" data-discography></div>
+      </section>
+
+      <section class="release-story-section flow-in" id="story" aria-labelledby="story-title">
+        <div class="release-story-intro">
+          <p class="section-kicker">Behind the release</p>
+          <h2 id="story-title">From coffee shops to the radio.</h2>
+          <p>Where I Wanna Be arrived through a run of intimate previews, release-night anticipation and radio support. Follow the moments that carried the song into the world.</p>
+          <blockquote class="release-quote" data-release-lyric></blockquote>
+        </div>
+        <div class="campaign-grid" data-release-campaign></div>
       </section>
 
       <section class="performance-bridge flow-in" aria-label="Live performance">
@@ -134,6 +170,15 @@
           <h2>The songs carry from the recording into the performance.</h2>
           <p>Live footage and acoustic takes keep the focus on the voice, the guitar and the connection with the audience.</p>
         </div>
+      </section>
+
+      <section class="highlights-section flow-in" id="highlights" aria-labelledby="highlights-title">
+        <div class="section-heading">
+          <p class="section-kicker">Recent moments</p>
+          <h2 id="highlights-title">On the road and on the rise.</h2>
+          <p class="section-copy">New performances, festival runs and support slots from Andrew's latest chapter.</p>
+        </div>
+        <div class="highlights-grid" data-highlights></div>
       </section>
 
       <section class="video-section flow-in" id="video" aria-labelledby="video-title">
@@ -192,6 +237,10 @@
               <div>
                 <dt>Featured release</dt>
                 <dd data-press-release></dd>
+              </div>
+              <div>
+                <dt>Recent highlight</dt>
+                <dd data-press-highlight></dd>
               </div>
             </dl>
             <div class="press-links" data-press-links></div>

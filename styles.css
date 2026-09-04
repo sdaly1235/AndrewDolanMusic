@@ -44,7 +44,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 92px;
+  scroll-padding-top: 128px;
   overflow-x: clip;
 }
 
@@ -789,7 +789,7 @@ section:not(.hero) {
 }
 
 .release-panel::after {
-  content: "R";
+  content: "W";
   position: absolute;
   right: -0.08em;
   bottom: -0.35em;
@@ -852,6 +852,19 @@ section:not(.hero) {
   color: var(--muted);
 }
 
+.release-copy .release-meta {
+  margin-bottom: 14px;
+  color: var(--accent-strong);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.release-copy .release-description {
+  max-width: 560px;
+}
+
 .spotify-embed {
   overflow: hidden;
   margin-top: 18px;
@@ -867,6 +880,209 @@ section:not(.hero) {
   border: 0;
 }
 
+.discography-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 28px;
+  align-items: end;
+  margin: clamp(56px, 8vw, 92px) 0 24px;
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+}
+
+.discography-heading .section-kicker {
+  margin: 0;
+}
+
+.discography-heading h3 {
+  max-width: 620px;
+  font-size: clamp(2.2rem, 4vw, 3.6rem);
+  text-align: right;
+}
+
+.discography-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.discography-card {
+  position: relative;
+  display: flex;
+  min-height: 190px;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 22px;
+  background: #181610;
+  transition: background-color 200ms ease;
+}
+
+.discography-card:hover {
+  background: #201c14;
+}
+
+.discography-card.is-featured {
+  grid-column: span 2;
+  background:
+    linear-gradient(145deg, rgba(216, 168, 79, 0.14), transparent 68%),
+    #1d1911;
+}
+
+.discography-card.is-featured::before {
+  content: "Latest";
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px 8px;
+  background: var(--accent);
+  color: var(--ink);
+  font-size: 0.64rem;
+  font-weight: 900;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.card-meta,
+.card-date,
+.card-kicker {
+  color: var(--accent-strong);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
+}
+
+.card-meta {
+  margin: 0 0 20px;
+}
+
+.discography-card h4 {
+  margin: 0 0 22px;
+  font-family: var(--display-font);
+  font-size: clamp(1.65rem, 2.6vw, 2.25rem);
+  font-weight: 500;
+  line-height: 0.98;
+}
+
+.text-link {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: auto;
+  color: var(--text);
+  font-size: 0.77rem;
+  font-weight: 800;
+  letter-spacing: 0.055em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.text-link::after {
+  content: "↗";
+  color: var(--accent-strong);
+  font-size: 1rem;
+  transition: transform 180ms var(--ease-out);
+}
+
+.text-link:hover::after {
+  transform: translate(2px, -2px);
+}
+
+.release-story-section {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1.28fr);
+  gap: clamp(42px, 7vw, 92px);
+  align-items: start;
+}
+
+.release-story-intro {
+  position: sticky;
+  top: 138px;
+}
+
+.release-story-intro > p:not(.section-kicker) {
+  max-width: 520px;
+  margin: 20px 0 0;
+  color: var(--muted);
+  font-size: 1.04rem;
+}
+
+.release-quote {
+  margin: 36px 0 0;
+  padding: 24px 0 4px 24px;
+  border-left: 1px solid var(--accent);
+  color: var(--text);
+  font-family: var(--display-font);
+  font-size: clamp(1.7rem, 3vw, 2.5rem);
+  font-style: italic;
+  line-height: 1.1;
+}
+
+.release-quote::before {
+  content: "“";
+  color: var(--accent);
+}
+
+.release-quote::after {
+  content: "”";
+  color: var(--accent);
+}
+
+.campaign-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.campaign-card,
+.highlight-card {
+  display: flex;
+  min-height: 250px;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: clamp(22px, 3vw, 32px);
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  transition: border-color 200ms ease, transform 220ms var(--ease-out);
+}
+
+.campaign-card:hover,
+.highlight-card:hover {
+  border-color: rgba(216, 168, 79, 0.45);
+  transform: translateY(-3px);
+}
+
+.campaign-card:nth-child(2) {
+  margin-left: clamp(0px, 4vw, 52px);
+}
+
+.campaign-card .card-kicker {
+  margin: 0 0 4px;
+}
+
+.campaign-card .card-date,
+.highlight-card .card-date {
+  display: block;
+  margin-bottom: 24px;
+  color: var(--muted);
+}
+
+.campaign-card h3,
+.highlight-card h3 {
+  max-width: 540px;
+  margin: 0 0 14px;
+  font-size: clamp(1.9rem, 3.2vw, 2.8rem);
+  line-height: 1.02;
+}
+
+.campaign-card > p:not(.card-kicker),
+.highlight-card > p {
+  max-width: 580px;
+  margin: 0 0 26px;
+  color: var(--muted);
+}
+
 .performance-bridge {
   display: grid;
   grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
@@ -874,6 +1090,39 @@ section:not(.hero) {
   align-items: center;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
+}
+
+.highlights-section {
+  position: relative;
+  isolation: isolate;
+}
+
+.highlights-section::before {
+  content: "";
+  position: absolute;
+  inset: 0 50%;
+  z-index: -1;
+  width: 100vw;
+  transform: translateX(-50%);
+  background:
+    radial-gradient(circle at 88% 24%, rgba(175, 101, 76, 0.1), transparent 30%),
+    #12110f;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.highlight-card:nth-child(3) {
+  border-left-color: rgba(127, 157, 134, 0.48);
+}
+
+.highlight-card:nth-child(4) {
+  border-left-color: rgba(175, 101, 76, 0.52);
 }
 
 .performance-bridge img {
@@ -1390,6 +1639,10 @@ section:not(.hero) {
 }
 
 @media (max-width: 780px) {
+  html {
+    scroll-padding-top: 120px;
+  }
+
   .site-header {
     align-items: center;
     gap: 14px;
@@ -1505,12 +1758,33 @@ section:not(.hero) {
 
   .intro-section,
   .release-panel,
+  .release-story-section,
   .performance-bridge,
   .video-layout,
   .press-layout,
   .site-footer,
   .error-layout {
     grid-template-columns: 1fr;
+  }
+
+  .release-story-intro {
+    position: static;
+  }
+
+  .discography-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .campaign-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .campaign-card:nth-child(2) {
+    margin-left: 0;
+  }
+
+  .campaign-card:last-child {
+    grid-column: 1 / -1;
   }
 
   .release-copy {
@@ -1586,7 +1860,7 @@ section:not(.hero) {
 
 @media (max-width: 520px) {
   html {
-    scroll-padding-top: 76px;
+    scroll-padding-top: 110px;
   }
 
   body.is-scrolled .site-header {
@@ -1688,6 +1962,35 @@ section:not(.hero) {
 
   .release-artwork {
     width: min(100%, 280px);
+  }
+
+  .discography-heading {
+    display: grid;
+    align-items: start;
+  }
+
+  .discography-heading h3 {
+    text-align: left;
+  }
+
+  .discography-grid,
+  .campaign-grid,
+  .highlights-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .campaign-card:last-child {
+    grid-column: auto;
+  }
+
+  .discography-card,
+  .campaign-card,
+  .highlight-card {
+    min-height: 0;
+  }
+
+  .discography-card.is-featured {
+    grid-column: auto;
   }
 
   .spotify-embed iframe {
