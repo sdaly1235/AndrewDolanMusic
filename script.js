@@ -135,20 +135,6 @@
     return link;
   }
 
-  function assetLink(path, label, variant = "secondary", ariaLabel = "") {
-    const safePath = safeAssetPath(path);
-    if (!safePath) return null;
-
-    const link = document.createElement("a");
-    link.className = `button ${variant}`;
-    link.href = safePath;
-    link.textContent = label;
-    if (ariaLabel) {
-      link.setAttribute("aria-label", ariaLabel);
-    }
-    return link;
-  }
-
   function externalTextLink(href, label, ariaLabel = "") {
     const safeHref = safeExternalUrl(href);
     if (!safeHref) return null;
@@ -449,32 +435,16 @@
     gallery.appendChild(figure);
   });
 
-  const pressKit = data.pressKit || {};
-  const pressPhoto = document.querySelector("[data-press-photo]");
-  const safePressPhoto = safeAssetPath(pressKit.pressPhoto);
-  if (pressPhoto && safePressPhoto) {
-    pressPhoto.src = safePressPhoto;
-  }
-  setText("[data-press-bio]", pressKit.bio);
-  setText("[data-press-artist]", data.artistName);
-  setText("[data-press-location]", pressKit.location);
-  setText("[data-press-release]", featuredTrack.title);
-  setText("[data-press-highlight]", pressKit.highlight);
-
-  const pressLinks = document.querySelector("[data-press-links]");
-  if (pressLinks && Array.isArray(pressKit.links)) {
-    pressKit.links.forEach((item, index) => {
-      const link = safeAssetPath(item.url)
-        ? assetLink(item.url, item.label, index === 0 ? "primary" : "secondary", item.ariaLabel || `${item.label} for Andrew Dolan Music`)
-        : externalLink(item.url, item.label, index === 0 ? "primary" : "secondary", item.ariaLabel || "");
-      if (link) {
-        pressLinks.appendChild(link);
-      }
-    });
-  }
-
   const footerLinks = document.querySelector("[data-footer-links]");
   renderSocialLinks(footerLinks, true);
+
+  const footerTrackLink = document.querySelector("[data-footer-track]");
+  if (footerTrackLink && safeTrackUrl) {
+    footerTrackLink.href = safeTrackUrl;
+    footerTrackLink.setAttribute("aria-label", `Listen to ${featuredTrack.title || "the new single"} on Spotify`);
+  } else if (footerTrackLink) {
+    footerTrackLink.hidden = true;
+  }
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const flowSections = document.querySelectorAll(".flow-in");
