@@ -78,6 +78,12 @@
     return value;
   }
 
+  function setSectionLinksVisibility(sectionId, isVisible) {
+    document.querySelectorAll(`[data-section-link="${sectionId}"]`).forEach((link) => {
+      link.hidden = !isVisible;
+    });
+  }
+
   function setText(selector, value) {
     const element = document.querySelector(selector);
     if (element) {
@@ -184,19 +190,56 @@
   const featuredVideo = data.featuredVideo || {};
   const safeVideoEmbedUrl = safeExternalUrl(featuredVideo.embedUrl);
   if (videoFrame && safeVideoEmbedUrl) {
-    const iframe = document.createElement("iframe");
-    iframe.src = safeVideoEmbedUrl;
-    iframe.title = featuredVideo.title || "Featured video";
-    iframe.loading = "lazy";
-    iframe.referrerPolicy = "strict-origin-when-cross-origin";
-    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-    iframe.allowFullscreen = true;
-    videoFrame.appendChild(iframe);
+    const loadVideo = () => {
+      const iframe = document.createElement("iframe");
+      const embedUrl = new URL(safeVideoEmbedUrl);
+      embedUrl.searchParams.set("autoplay", "1");
+      iframe.src = embedUrl.href;
+      iframe.title = featuredVideo.title || "Featured video";
+      iframe.referrerPolicy = "strict-origin-when-cross-origin";
+      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      iframe.allowFullscreen = true;
+      videoFrame.replaceChildren(iframe);
+      videoFrame.classList.add("is-playing");
+    };
+
+    const thumbnailPath = safeAssetPath(featuredVideo.thumbnail);
+    if (thumbnailPath) {
+      const poster = document.createElement("button");
+      poster.className = "video-poster";
+      poster.type = "button";
+      poster.setAttribute("aria-label", `Play ${featuredVideo.title || "featured video"}`);
+
+      const thumbnail = document.createElement("img");
+      thumbnail.src = thumbnailPath;
+      thumbnail.alt = "";
+      thumbnail.width = 480;
+      thumbnail.height = 360;
+      thumbnail.loading = "lazy";
+      thumbnail.decoding = "async";
+
+      const posterContent = document.createElement("span");
+      posterContent.className = "video-poster-content";
+      const playIcon = document.createElement("span");
+      playIcon.className = "video-play-icon";
+      playIcon.setAttribute("aria-hidden", "true");
+      const playLabel = document.createElement("span");
+      playLabel.textContent = "Play acoustic session";
+      posterContent.append(playIcon, playLabel);
+
+      poster.append(thumbnail, posterContent);
+      poster.addEventListener("click", loadVideo, { once: true });
+      videoFrame.appendChild(poster);
+    } else {
+      loadVideo();
+    }
   }
 
   const tourSection = document.querySelector("[data-tour-section]");
   const tourList = document.querySelector("[data-tour-list]");
-  if (Array.isArray(data.tourDates) && data.tourDates.length > 0) {
+  const hasTourDates = Array.isArray(data.tourDates) && data.tourDates.length > 0;
+  setSectionLinksVisibility("tour", hasTourDates);
+  if (hasTourDates) {
     tourSection.hidden = false;
     data.tourDates.forEach((show) => {
       const item = document.createElement("article");
@@ -276,12 +319,6 @@
     }
     figure.appendChild(image);
 
-    if (item.caption) {
-      const caption = document.createElement("figcaption");
-      caption.textContent = item.caption;
-      figure.appendChild(caption);
-    }
-
     gallery.appendChild(figure);
   });
 
@@ -329,16 +366,18 @@
     flowSections.forEach((section) => section.classList.add("is-visible"));
   }
 
-  const navLinks = document.querySelectorAll(".nav-links a[href^='#']");
-  const navTargets = [...navLinks]
+  const navLinks = document.querySelectorAll(".nav-links a[href^='#']:not([hidden])");
+  const chapterLinks = document.querySelectorAll(".chapter-strip a[href^='#']:not([hidden])");
+  const sectionNavigationLinks = [...navLinks, ...chapterLinks];
+  const navTargets = [...new Set(sectionNavigationLinks
     .map((link) => document.querySelector(link.getAttribute("href")))
-    .filter(Boolean);
+    .filter((target) => target && !target.hidden))];
 
   if ("IntersectionObserver" in window) {
     const navObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
-        navLinks.forEach((link) => {
+        sectionNavigationLinks.forEach((link) => {
           link.classList.toggle("is-active", link.getAttribute("href") === `#${entry.target.id}`);
         });
       });

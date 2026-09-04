@@ -17,7 +17,7 @@ window.siteData = {
     title: "White Feather Acoustic Version",
     youtubeUrl: "https://youtu.be/AMx1XLXcnh4",
     embedUrl: "https://www.youtube.com/embed/AMx1XLXcnh4",
-    thumbnail: "assets/white-feather-thumb.jpg"
+    thumbnail: "assets/white-feather-poster.jpg"
   },
   pressKit: {
     bio: "Andrew Dolan is an Irish singer-songwriter writing intimate, roots-led songs built around direct vocals, warm acoustic textures and live-room storytelling.",
@@ -51,43 +51,37 @@ window.siteData = {
       image: "assets/gallery-band-wide.jpg",
       width: 593,
       height: 315,
-      alt: "Andrew Dolan playing guitar with the band",
-      caption: "Live with the band"
+      alt: "Andrew Dolan playing guitar with the band"
     },
     {
       image: "assets/gallery-live-room.jpg",
       width: 585,
       height: 438,
-      alt: "Andrew Dolan performing in an intimate venue",
-      caption: "In the room"
+      alt: "Andrew Dolan performing in an intimate venue"
     },
     {
       image: "assets/gallery-performance-01.jpg",
       width: 240,
       height: 320,
-      alt: "Andrew Dolan singing into a microphone",
-      caption: "On stage"
+      alt: "Andrew Dolan singing into a microphone"
     },
     {
       image: "assets/gallery-portrait-01.jpg",
       width: 240,
       height: 320,
-      alt: "Portrait of Andrew Dolan with guitar",
-      caption: "Portrait"
+      alt: "Portrait of Andrew Dolan with guitar"
     },
     {
       image: "assets/gallery-portrait-02.jpg",
       width: 240,
       height: 320,
-      alt: "Andrew Dolan portrait from a live session",
-      caption: "Session"
+      alt: "Andrew Dolan portrait from a live session"
     },
     {
-      image: "assets/gallery-portrait-03.jpg",
-      width: 180,
+      image: "assets/gallery-portrait-04.jpg",
+      width: 230,
       height: 320,
-      alt: "Andrew Dolan acoustic performance portrait",
-      caption: "Acoustic"
+      alt: "Andrew Dolan playing guitar under stage lights"
     }
   ]
 };

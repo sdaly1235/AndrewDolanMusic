@@ -16,7 +16,7 @@
     <meta property="og:url" content="https://andrewdolanmusic.com/">
     <meta property="og:site_name" content="Andrew Dolan Music">
     <meta property="og:image" content="https://andrewdolanmusic.com/assets/hero-performance.jpg">
-    <meta property="og:image:alt" content="Andrew Dolan performing live on stage">
+    <meta property="og:image:alt" content="Andrew Dolan performing live with guitar">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Andrew Dolan Music">
     <meta name="twitter:description" content="Listen to Rockstown, watch live videos, browse photos, and follow Andrew online.">
@@ -40,7 +40,8 @@
     <link rel="icon" type="image/png" href="/assets/icon-192x192.png" sizes="192x192">
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
-    <link rel="preload" href="assets/hero-performance.jpg" as="image">
+    <link rel="preload" href="assets/gallery-live-room.jpg" as="image">
+    <link rel="preload" href="assets/fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
@@ -50,9 +51,9 @@
     <header class="site-header" aria-label="Primary navigation">
       <a class="brand" href="#top" aria-label="Andrew Dolan Music home">
         <span class="brand-mark">
-          <img src="assets/artist-profile.jpg" alt="" width="381" height="456">
+          <img src="assets/icon-192x192.png" alt="" width="192" height="192">
         </span>
-        <span>Andrew Dolan Music</span>
+        <span>Andrew Dolan</span>
       </a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open navigation menu">
         <span class="nav-toggle-icon" aria-hidden="true"><span></span></span>
@@ -61,7 +62,7 @@
       <nav class="nav-links" id="primary-nav" aria-label="Site sections">
         <a href="#music">Music</a>
         <a href="#video">Video</a>
-        <a href="#tour">Live</a>
+        <a href="#tour" data-section-link="tour" hidden>Live</a>
         <a href="#gallery">Photos</a>
         <a href="#press">Press</a>
         <a href="#contact">Contact</a>
@@ -71,7 +72,7 @@
     <main id="main-content">
       <section class="hero" aria-labelledby="hero-title">
         <picture class="hero-media">
-          <img src="assets/hero-performance.jpg" alt="Andrew Dolan performing live on stage" width="1170" height="588">
+          <img src="assets/gallery-live-room.jpg" alt="Andrew Dolan singing and playing guitar in a live room" width="585" height="438">
         </picture>
         <div class="hero-overlay"></div>
         <div class="hero-content">
@@ -90,7 +91,7 @@
         <a href="#video">
           Acoustic video
         </a>
-        <a href="#tour">
+        <a href="#tour" data-section-link="tour" hidden>
           Live dates
         </a>
         <a href="#gallery">
@@ -116,7 +117,7 @@
           <div class="release-artwork">
             <img src="assets/rockstown-cover.jpg" alt="Rockstown cover artwork" width="640" height="640">
           </div>
-          <div>
+          <div class="release-copy">
             <p class="eyebrow">Spotlight track</p>
             <h3 data-track-title></h3>
             <p data-track-artist></p>
@@ -127,7 +128,7 @@
       </section>
 
       <section class="performance-bridge flow-in" aria-label="Live performance">
-        <img src="assets/gallery-live-room.jpg" alt="Andrew Dolan performing in a live room" width="585" height="438">
+        <img src="assets/gallery-band-wide.jpg" alt="Andrew Dolan pictured with his guitar" width="593" height="315">
         <div>
           <p class="section-kicker">From record to room</p>
           <h2>The songs carry from the recording into the performance.</h2>
