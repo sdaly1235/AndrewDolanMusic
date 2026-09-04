@@ -84,6 +84,7 @@
         <a href="#video">Video</a>
         <a href="#tour" data-section-link="tour" hidden>Live</a>
         <a href="#gallery">Photos</a>
+        <a href="#press">Press</a>
         <a href="#contact">Contact</a>
       </nav>
     </header>
@@ -117,6 +118,15 @@
           Latest video
         </a>
       </nav>
+
+      <section class="intro-section flow-in" aria-label="Artist introduction">
+        <div class="intro-copy">
+          <p class="section-kicker">Music, shows and stories</p>
+          <h2>From Omagh to bigger stages, the songs stay close.</h2>
+          <p>Andrew's music pairs direct vocals and warm acoustic textures with honest storytelling — equally at home in an intimate coffee shop or a sold-out concert hall.</p>
+        </div>
+        <img class="artist-card-image" src="assets/artist-profile.jpg" alt="Andrew Dolan artist profile image" width="381" height="456">
+      </section>
 
       <section class="music-section flow-in" id="music" aria-labelledby="music-title">
         <div class="section-heading">
@@ -153,21 +163,12 @@
         <div class="campaign-grid" data-release-campaign></div>
       </section>
 
-      <section class="artist-section flow-in" aria-labelledby="artist-title">
-        <div class="artist-collage">
-          <img class="artist-live-image" src="assets/gallery-band-wide.jpg" alt="Andrew Dolan pictured with his guitar" width="593" height="315" loading="lazy">
-          <img class="artist-portrait-image" src="assets/artist-profile.jpg" alt="Portrait of Andrew Dolan" width="381" height="456" loading="lazy">
-          <p class="artist-location"><span>Based in</span>Omagh, Northern Ireland</p>
-        </div>
-        <div class="artist-copy">
-          <p class="section-kicker">The artist</p>
-          <h2 id="artist-title">The room gets bigger. The connection stays close.</h2>
-          <p>Andrew pairs direct vocals and warm acoustic textures with honest storytelling — carrying original songs from coffee shops and pubs to festival stages and sold-out concert halls.</p>
-          <ul class="artist-notes" aria-label="Andrew Dolan's musical focus">
-            <li>Original songs</li>
-            <li>Live-room sound</li>
-            <li>Irish folk roots</li>
-          </ul>
+      <section class="performance-bridge flow-in" aria-label="Live performance">
+        <img src="assets/gallery-band-wide.jpg" alt="Andrew Dolan pictured with his guitar" width="593" height="315">
+        <div>
+          <p class="section-kicker">From record to room</p>
+          <h2>The songs carry from the recording into the performance.</h2>
+          <p>Live footage and acoustic takes keep the focus on the voice, the guitar and the connection with the audience.</p>
         </div>
       </section>
 
@@ -215,18 +216,46 @@
         <div class="gallery-grid" data-gallery></div>
       </section>
 
+      <section class="press-section flow-in" id="press" aria-labelledby="press-title">
+        <div class="section-heading">
+          <p class="section-kicker">Press kit</p>
+          <h2 id="press-title">For venues, promoters and media.</h2>
+        </div>
+        <div class="press-layout">
+          <img data-press-photo src="assets/artist-profile.jpg" alt="Andrew Dolan press photo" width="381" height="456">
+          <div class="press-copy">
+            <p data-press-bio></p>
+            <dl class="press-facts">
+              <div>
+                <dt>Artist</dt>
+                <dd data-press-artist></dd>
+              </div>
+              <div>
+                <dt>Based in</dt>
+                <dd data-press-location></dd>
+              </div>
+              <div>
+                <dt>Featured release</dt>
+                <dd data-press-release></dd>
+              </div>
+              <div>
+                <dt>Recent highlight</dt>
+                <dd data-press-highlight></dd>
+              </div>
+            </dl>
+            <div class="press-links" data-press-links></div>
+          </div>
+        </div>
+      </section>
     </main>
 
     <footer class="site-footer" id="contact">
-      <div class="footer-heading">
-        <p class="section-kicker">New single available now</p>
-        <h2>Where I Wanna Be is out now.</h2>
+      <div>
+        <p class="section-kicker">Andrew Dolan Music</p>
+        <h2>Listen, watch, follow.</h2>
+        <p class="footer-meta">© 2026 Andrew Dolan Music</p>
       </div>
-      <div class="footer-action-group">
-        <a class="button primary" data-footer-track target="_blank" rel="noopener noreferrer">Listen on Spotify</a>
-        <div class="footer-links" data-footer-links></div>
-      </div>
-      <p class="footer-meta">© 2026 Andrew Dolan Music</p>
+      <div class="footer-links" data-footer-links></div>
     </footer>
 
     <script src="site-data.js" defer></script>

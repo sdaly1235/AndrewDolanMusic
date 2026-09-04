@@ -139,6 +139,34 @@ window.siteData = {
     embedUrl: "https://www.youtube.com/embed/AMx1XLXcnh4",
     thumbnail: "assets/white-feather-poster.jpg"
   },
+  pressKit: {
+    bio: "Andrew Dolan is an Omagh-based Irish singer-songwriter blending folk roots with a modern live-room sound. From pubs and coffee shops to major music halls, he has shared stages with Bonnie Tyler, Ryan McMullan, Chris Norman, The Whistlin’ Donkeys and the Bay City Rollers. His latest original single, Where I Wanna Be, arrived on 21 August 2026 and received a week of evening airplay on Q Radio.",
+    location: "Omagh, Northern Ireland",
+    highlight: "Waterfront Hall, Belfast",
+    pressPhoto: "assets/artist-profile.jpg",
+    links: [
+      {
+        label: "Artist photo",
+        ariaLabel: "Open Andrew Dolan Music press photo",
+        url: "assets/artist-profile.jpg"
+      },
+      {
+        label: "Latest single",
+        ariaLabel: "Listen to Where I Wanna Be on Spotify",
+        url: "https://open.spotify.com/track/42Cjinfjtu9wANRrsWBdOe"
+      },
+      {
+        label: "Press coverage",
+        ariaLabel: "Read coverage of Andrew Dolan opening for Bonnie Tyler",
+        url: "https://www.tyronecon.co.uk/news/2026/02/11/gallery/omagh-teenager-opens-for-bonnie-tyler-at-sold-out-belfast-show-61701/"
+      },
+      {
+        label: "Spotify profile",
+        ariaLabel: "Andrew Dolan on Spotify",
+        url: "https://open.spotify.com/artist/74Vq2yie9cISoNQCZJ2Esn"
+      }
+    ]
+  },
   tourDates: [],
   merch: {
     label: "Merch coming soon",
