@@ -943,15 +943,34 @@ section:not(.hero) {
 }
 
 .release-story-section {
-  display: grid;
-  grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1.28fr);
-  gap: clamp(42px, 7vw, 92px);
-  align-items: start;
+  display: block;
 }
 
 .release-story-intro {
-  position: sticky;
-  top: 138px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+  column-gap: clamp(44px, 8vw, 110px);
+  align-items: center;
+  margin-bottom: clamp(38px, 6vw, 68px);
+}
+
+.release-story-intro .section-kicker,
+.release-story-intro h2,
+.release-story-intro > p {
+  grid-column: 1;
+}
+
+.release-story-intro .section-kicker {
+  grid-row: 1;
+}
+
+.release-story-intro h2 {
+  grid-row: 2;
+  max-width: 680px;
+}
+
+.release-story-intro > p:not(.section-kicker) {
+  grid-row: 3;
 }
 
 .release-story-intro > p:not(.section-kicker) {
@@ -962,8 +981,10 @@ section:not(.hero) {
 }
 
 .release-quote {
-  margin: 36px 0 0;
-  padding: 24px 0 4px 24px;
+  grid-column: 2;
+  grid-row: 1 / 4;
+  margin: 0;
+  padding: 34px 0 34px clamp(24px, 4vw, 46px);
   border-left: 1px solid var(--accent);
   color: var(--text);
   font-family: var(--display-font);
@@ -984,7 +1005,11 @@ section:not(.hero) {
 
 .campaign-grid {
   display: grid;
-  gap: 14px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  counter-reset: campaign;
 }
 
 .campaign-card,
@@ -1005,8 +1030,23 @@ section:not(.hero) {
   transform: translateY(-3px);
 }
 
-.campaign-card:nth-child(2) {
-  margin-left: clamp(0px, 4vw, 52px);
+.campaign-card {
+  position: relative;
+  min-height: 330px;
+  padding-top: clamp(48px, 5vw, 66px);
+  border: 0;
+  counter-increment: campaign;
+}
+
+.campaign-card::before {
+  content: "0" counter(campaign);
+  position: absolute;
+  top: 20px;
+  right: 22px;
+  color: rgba(216, 168, 79, 0.56);
+  font-family: var(--display-font);
+  font-size: 1.25rem;
+  font-weight: 650;
 }
 
 .campaign-card .card-kicker {
@@ -1039,7 +1079,7 @@ section:not(.hero) {
   position: relative;
   isolation: isolate;
   display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);
+  grid-template-columns: minmax(300px, 0.78fr) minmax(0, 1.22fr);
   gap: clamp(44px, 7vw, 94px);
   align-items: center;
 }
@@ -1061,54 +1101,55 @@ section:not(.hero) {
   border-bottom: 1px solid var(--line);
 }
 
-.artist-collage {
-  position: relative;
-  min-height: 470px;
-  padding: 36px 72px 78px 0;
+.artist-copy {
+  max-width: 500px;
+}
+
+.artist-copy h2 {
+  max-width: 500px;
+  font-size: clamp(3.2rem, 5.5vw, 5.2rem);
+}
+
+.artist-copy > p:not(.section-kicker) {
+  max-width: 500px;
+  margin: 24px 0 0;
+  color: var(--muted);
+  font-size: 1.07rem;
+}
+
+.artist-media-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(150px, 0.48fr);
+  grid-template-rows: auto 180px;
+  gap: 12px;
 }
 
 .artist-live-image {
+  grid-column: 1 / -1;
   width: 100%;
-  min-height: 350px;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 593 / 315;
   object-fit: cover;
   border: 1px solid var(--line);
-  box-shadow: 20px 22px 0 rgba(127, 157, 134, 0.1);
+  box-shadow: 18px 18px 0 rgba(127, 157, 134, 0.09);
   filter: contrast(1.04);
 }
 
 .artist-portrait-image {
-  position: absolute;
-  right: 0;
-  bottom: 20px;
-  width: min(38%, 190px);
-  aspect-ratio: 4 / 5;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  border: 8px solid #11130f;
-  box-shadow: 0 24px 52px rgba(0, 0, 0, 0.4);
-  transform: rotate(1.2deg);
-  transition: transform 500ms var(--ease-out);
-}
-
-.artist-section:hover .artist-portrait-image {
-  transform: translateY(-4px) rotate(0deg);
+  object-position: center 24%;
+  border: 1px solid var(--line);
 }
 
 .artist-location {
-  position: absolute;
-  left: 20px;
-  bottom: 38px;
   display: grid;
-  gap: 2px;
+  align-content: center;
+  gap: 0;
   margin: 0;
-  padding: 11px 14px;
+  padding: clamp(18px, 3vw, 32px);
   background: var(--accent);
   color: var(--ink);
-  font-family: var(--display-font);
-  font-size: 1.25rem;
-  font-weight: 650;
-  line-height: 1.05;
-  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.18);
 }
 
 .artist-location span {
@@ -1119,40 +1160,50 @@ section:not(.hero) {
   text-transform: uppercase;
 }
 
-.artist-copy h2 {
-  max-width: 590px;
-  font-size: clamp(3rem, 5.3vw, 5rem);
+.artist-location strong {
+  font-family: var(--display-font);
+  font-size: clamp(2.8rem, 5vw, 4.5rem);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 0.88;
 }
 
-.artist-copy > p:not(.section-kicker) {
-  max-width: 590px;
-  margin: 24px 0 0;
-  color: var(--muted);
-  font-size: 1.07rem;
+.artist-location small {
+  margin-top: 8px;
+  font-size: 0.78rem;
+  font-weight: 750;
 }
 
 .artist-notes {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  counter-reset: artist-note;
   margin: 34px 0 0;
   padding: 0;
   border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
   list-style: none;
 }
 
 .artist-notes li {
-  padding: 13px 10px;
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
+  padding: 12px 0;
   color: var(--accent-strong);
   font-size: 0.67rem;
   font-weight: 850;
   letter-spacing: 0.07em;
-  text-align: center;
   text-transform: uppercase;
+  border-bottom: 1px solid var(--line);
+  counter-increment: artist-note;
 }
 
-.artist-notes li + li {
-  border-left: 1px solid var(--line);
+.artist-notes li::before {
+  content: "0" counter(artist-note);
+  color: var(--muted);
+  font-family: var(--display-font);
+  font-size: 0.95rem;
+  letter-spacing: 0;
 }
 
 .highlights-section {
@@ -1786,7 +1837,16 @@ section:not(.hero) {
   }
 
   .release-story-intro {
-    position: static;
+    grid-template-columns: 1fr;
+    row-gap: 0;
+  }
+
+  .release-quote {
+    grid-column: 1;
+    grid-row: 4;
+    margin-top: 32px;
+    padding-top: 24px;
+    padding-bottom: 8px;
   }
 
   .discography-grid {
@@ -1795,10 +1855,6 @@ section:not(.hero) {
 
   .campaign-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .campaign-card:nth-child(2) {
-    margin-left: 0;
   }
 
   .campaign-card:last-child {
@@ -1812,8 +1868,7 @@ section:not(.hero) {
     border-left: 0;
   }
 
-  .artist-collage {
-    min-height: 440px;
+  .artist-media-grid {
     max-width: 720px;
   }
 
@@ -1982,35 +2037,28 @@ section:not(.hero) {
     width: min(100%, 280px);
   }
 
-  .artist-collage {
-    min-height: 360px;
-    padding: 0 46px 72px 0;
+  .artist-media-grid {
+    grid-template-columns: minmax(0, 1fr) 120px;
+    grid-template-rows: auto 142px;
+    gap: 8px;
   }
 
   .artist-live-image {
-    min-height: 260px;
+    min-height: 0;
   }
 
   .artist-portrait-image {
-    bottom: 12px;
-    width: min(36%, 132px);
-    border-width: 5px;
+    width: 100%;
+    border-width: 1px;
   }
 
   .artist-location {
-    bottom: 28px;
-    left: 10px;
-    max-width: 190px;
-    font-size: 1.05rem;
+    max-width: none;
+    padding: 18px;
   }
 
-  .artist-notes {
-    grid-template-columns: 1fr;
-  }
-
-  .artist-notes li + li {
-    border-top: 1px solid var(--line);
-    border-left: 0;
+  .artist-location strong {
+    font-size: 2.8rem;
   }
 
   .discography-heading {
