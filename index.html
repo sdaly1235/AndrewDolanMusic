@@ -119,19 +119,10 @@
         </a>
       </nav>
 
-      <section class="intro-section flow-in" aria-label="Artist introduction">
-        <div class="intro-copy">
-          <p class="section-kicker">Music, shows and stories</p>
-          <h2>From Omagh to bigger stages, the songs stay close.</h2>
-          <p>Andrew's music pairs direct vocals and warm acoustic textures with honest storytelling — equally at home in an intimate coffee shop or a sold-out concert hall.</p>
-        </div>
-        <img class="artist-card-image" src="assets/artist-profile.jpg" alt="Andrew Dolan artist profile image" width="381" height="456">
-      </section>
-
       <section class="music-section flow-in" id="music" aria-labelledby="music-title">
         <div class="section-heading">
           <p class="section-kicker">Featured release</p>
-          <h2 id="music-title" data-track-heading></h2>
+          <h2 id="music-title">The new single, out now.</h2>
         </div>
         <article class="release-panel">
           <div class="release-artwork">
@@ -146,11 +137,6 @@
             <div class="spotify-embed" data-spotify-embed></div>
           </div>
         </article>
-        <div class="discography-heading">
-          <p class="section-kicker">Discography</p>
-          <h3>More songs from Andrew.</h3>
-        </div>
-        <div class="discography-grid" data-discography></div>
       </section>
 
       <section class="release-story-section flow-in" id="story" aria-labelledby="story-title">
@@ -161,15 +147,6 @@
           <blockquote class="release-quote" data-release-lyric></blockquote>
         </div>
         <div class="campaign-grid" data-release-campaign></div>
-      </section>
-
-      <section class="performance-bridge flow-in" aria-label="Live performance">
-        <img src="assets/gallery-band-wide.jpg" alt="Andrew Dolan pictured with his guitar" width="593" height="315">
-        <div>
-          <p class="section-kicker">From record to room</p>
-          <h2>The songs carry from the recording into the performance.</h2>
-          <p>Live footage and acoustic takes keep the focus on the voice, the guitar and the connection with the audience.</p>
-        </div>
       </section>
 
       <section class="highlights-section flow-in" id="highlights" aria-labelledby="highlights-title">
@@ -190,6 +167,36 @@
           </div>
           <div class="video-frame" data-video-frame></div>
         </div>
+      </section>
+
+      <section class="artist-section flow-in" aria-labelledby="artist-title">
+        <div class="artist-visual">
+          <img src="assets/gallery-band-wide.jpg" alt="Andrew Dolan pictured with his guitar" width="593" height="315" loading="lazy">
+          <p class="artist-location"><span>Home</span>Omagh, Northern Ireland</p>
+        </div>
+        <div class="artist-copy">
+          <p class="section-kicker">The artist</p>
+          <h2 id="artist-title">Songs that start close to home.</h2>
+          <p>Andrew pairs direct vocals and warm acoustic textures with honest storytelling. The focus stays on the song and the connection with the room, from intimate sessions to major stages.</p>
+          <dl class="artist-facts">
+            <div>
+              <dt>Recent stage</dt>
+              <dd>Waterfront Hall, Belfast</dd>
+            </div>
+            <div>
+              <dt>Shared stages</dt>
+              <dd>Bonnie Tyler, Ryan McMullan and The Whistlin’ Donkeys</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="discography-section flow-in" aria-labelledby="discography-title">
+        <div class="discography-heading">
+          <p class="section-kicker">Discography</p>
+          <h2 id="discography-title">More songs from Andrew.</h2>
+        </div>
+        <div class="discography-grid" data-discography></div>
       </section>
 
       <section class="conditional-section flow-in" id="tour" data-tour-section hidden>
@@ -219,33 +226,39 @@
       <section class="press-section flow-in" id="press" aria-labelledby="press-title">
         <div class="section-heading">
           <p class="section-kicker">Press kit</p>
-          <h2 id="press-title">For venues, promoters and media.</h2>
+          <h2 id="press-title">Press resources.</h2>
         </div>
-        <div class="press-layout">
-          <img data-press-photo src="assets/artist-profile.jpg" alt="Andrew Dolan press photo" width="381" height="456">
-          <div class="press-copy">
-            <p data-press-bio></p>
-            <dl class="press-facts">
-              <div>
-                <dt>Artist</dt>
-                <dd data-press-artist></dd>
-              </div>
-              <div>
-                <dt>Based in</dt>
-                <dd data-press-location></dd>
-              </div>
-              <div>
-                <dt>Featured release</dt>
-                <dd data-press-release></dd>
-              </div>
-              <div>
-                <dt>Recent highlight</dt>
-                <dd data-press-highlight></dd>
-              </div>
-            </dl>
-            <div class="press-links" data-press-links></div>
+        <details class="press-disclosure">
+          <summary>
+            <span>Biography, artist facts, photography and listening links</span>
+            <strong>Open press kit</strong>
+          </summary>
+          <div class="press-layout">
+            <img data-press-photo src="assets/artist-profile.jpg" alt="Andrew Dolan press photo" width="381" height="456" loading="lazy">
+            <div class="press-copy">
+              <p data-press-bio></p>
+              <dl class="press-facts">
+                <div>
+                  <dt>Artist</dt>
+                  <dd data-press-artist></dd>
+                </div>
+                <div>
+                  <dt>Based in</dt>
+                  <dd data-press-location></dd>
+                </div>
+                <div>
+                  <dt>Featured release</dt>
+                  <dd data-press-release></dd>
+                </div>
+                <div>
+                  <dt>Recent highlight</dt>
+                  <dd data-press-highlight></dd>
+                </div>
+              </dl>
+              <div class="press-links" data-press-links></div>
+            </div>
           </div>
-        </div>
+        </details>
       </section>
     </main>
 

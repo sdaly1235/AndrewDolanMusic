@@ -1,29 +1,32 @@
 (function () {
-  if ("scrollRestoration" in history) {
-    history.scrollRestoration = "manual";
-  }
-
-  if (!window.location.hash) {
-    window.scrollTo(0, 0);
-  }
-
   const data = window.siteData || {};
   const siteHeader = document.querySelector(".site-header");
   const navToggle = document.querySelector(".nav-toggle");
   const primaryNav = document.querySelector("#primary-nav");
+  const mainContent = document.querySelector("#main-content");
+  const siteFooter = document.querySelector(".site-footer");
 
-  function closeNavigation() {
+  function setNavigationOpen(isOpen) {
     if (!siteHeader || !navToggle) return;
-    siteHeader.classList.remove("is-menu-open");
-    navToggle.setAttribute("aria-expanded", "false");
-    navToggle.setAttribute("aria-label", "Open navigation menu");
+    siteHeader.classList.toggle("is-menu-open", isOpen);
+    document.body.classList.toggle("is-menu-open", isOpen);
+    navToggle.setAttribute("aria-expanded", String(isOpen));
+    navToggle.setAttribute("aria-label", isOpen ? "Close navigation menu" : "Open navigation menu");
+
+    if ("inert" in HTMLElement.prototype) {
+      if (mainContent) mainContent.inert = isOpen;
+      if (siteFooter) siteFooter.inert = isOpen;
+    }
+  }
+
+  function closeNavigation(restoreFocus = false) {
+    setNavigationOpen(false);
+    if (restoreFocus && navToggle) navToggle.focus();
   }
 
   if (siteHeader && navToggle && primaryNav) {
     navToggle.addEventListener("click", () => {
-      const isOpen = siteHeader.classList.toggle("is-menu-open");
-      navToggle.setAttribute("aria-expanded", String(isOpen));
-      navToggle.setAttribute("aria-label", isOpen ? "Close navigation menu" : "Open navigation menu");
+      setNavigationOpen(!siteHeader.classList.contains("is-menu-open"));
     });
 
     primaryNav.querySelectorAll("a").forEach((link) => {
@@ -35,8 +38,7 @@
 
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape" && siteHeader.classList.contains("is-menu-open")) {
-        closeNavigation();
-        navToggle.focus();
+        closeNavigation(true);
       }
     });
 
@@ -182,11 +184,21 @@
     });
   }
 
+  let scrollFrame = 0;
+
   function updateScrollState() {
+    scrollFrame = 0;
     const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
-    document.documentElement.style.setProperty("--scroll-progress", `${Math.min(progress, 100)}%`);
+    const progress = scrollable > 0 ? window.scrollY / scrollable : 0;
+    const clampedProgress = Math.min(Math.max(progress, 0), 1);
+    document.documentElement.style.setProperty("--scroll-progress", String(clampedProgress));
     document.body.classList.toggle("is-scrolled", window.scrollY > 24);
+    updateActiveNavigation();
+  }
+
+  function requestScrollStateUpdate() {
+    if (scrollFrame) return;
+    scrollFrame = window.requestAnimationFrame(updateScrollState);
   }
 
   setText('[data-content="tagline"]', data.tagline);
@@ -204,7 +216,6 @@
     renderSocialLinks(heroActions, false, ["instagram"]);
   }
 
-  setText("[data-track-heading]", featuredTrack.title);
   setText("[data-track-title]", featuredTrack.title);
   setText("[data-track-meta]", [featuredTrack.releaseDate, featuredTrack.duration].filter(Boolean).join(" · "));
   setText("[data-track-description]", featuredTrack.description);
@@ -239,15 +250,15 @@
 
   const discography = document.querySelector("[data-discography]");
   if (discography && Array.isArray(data.discography)) {
-    data.discography.forEach((release) => {
+    data.discography.filter((release) => !release.featured).forEach((release) => {
       const card = document.createElement("article");
-      card.className = `discography-card${release.featured ? " is-featured" : ""}`;
+      card.className = "discography-card";
 
       const meta = document.createElement("p");
       meta.className = "card-meta";
       meta.textContent = [release.type, release.date].filter(Boolean).join(" · ");
 
-      const title = document.createElement("h4");
+      const title = document.createElement("h3");
       title.textContent = release.title || "Release";
 
       const linkLabel = safeExternalUrl(release.url).includes("music.apple.com")
@@ -488,7 +499,7 @@
         entry.target.classList.add("is-visible");
         observer.unobserve(entry.target);
       });
-    }, { rootMargin: "0px 0px -10%", threshold: 0.08 });
+    }, { rootMargin: "0px 0px -4%", threshold: 0.03 });
     flowSections.forEach((section) => flowObserver.observe(section));
   } else {
     flowSections.forEach((section) => section.classList.add("is-visible"));
@@ -501,19 +512,69 @@
     .map((link) => document.querySelector(link.getAttribute("href")))
     .filter((target) => target && !target.hidden))];
 
-  if ("IntersectionObserver" in window) {
-    const navObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        sectionNavigationLinks.forEach((link) => {
-          link.classList.toggle("is-active", link.getAttribute("href") === `#${entry.target.id}`);
-        });
-      });
-    }, { rootMargin: "-38% 0px -52% 0px", threshold: 0 });
-    navTargets.forEach((section) => navObserver.observe(section));
+  function updateActiveNavigation() {
+    const readingLine = window.scrollY + Math.min(window.innerHeight * 0.35, 280);
+    let activeTarget = null;
+
+    navTargets.forEach((section) => {
+      if (section.offsetTop <= readingLine) activeTarget = section;
+    });
+
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
+      activeTarget = navTargets[navTargets.length - 1] || activeTarget;
+    }
+
+    sectionNavigationLinks.forEach((link) => {
+      const isActive = Boolean(activeTarget) && link.getAttribute("href") === `#${activeTarget.id}`;
+      link.classList.toggle("is-active", isActive);
+      if (isActive) {
+        link.setAttribute("aria-current", "location");
+      } else {
+        link.removeAttribute("aria-current");
+      }
+    });
+  }
+
+  const pressDisclosure = document.querySelector(".press-disclosure");
+  if (pressDisclosure) {
+    const pressToggleLabel = pressDisclosure.querySelector("summary strong");
+    pressDisclosure.addEventListener("toggle", () => {
+      if (pressToggleLabel) {
+        pressToggleLabel.textContent = pressDisclosure.open ? "Close press kit" : "Open press kit";
+      }
+      requestScrollStateUpdate();
+    });
+  }
+
+  function findHashTarget(hash) {
+    try {
+      return document.getElementById(decodeURIComponent(hash.slice(1)));
+    } catch (_) {
+      return null;
+    }
+  }
+
+  const initialHash = window.location.hash;
+  const alignInitialHash = () => {
+    if (!initialHash || window.location.hash !== initialHash) return;
+    const hashTarget = findHashTarget(initialHash);
+    if (hashTarget) {
+      const previousScrollBehavior = document.documentElement.style.scrollBehavior;
+      document.documentElement.style.scrollBehavior = "auto";
+      hashTarget.scrollIntoView({ behavior: "auto", block: "start" });
+      document.documentElement.style.scrollBehavior = previousScrollBehavior;
+    }
+  };
+
+  if (initialHash && findHashTarget(initialHash)) {
+    window.requestAnimationFrame(() => window.requestAnimationFrame(alignInitialHash));
+    window.addEventListener("load", alignInitialHash, { once: true });
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(alignInitialHash);
+    }
   }
 
   updateScrollState();
-  window.addEventListener("scroll", updateScrollState, { passive: true });
-  window.addEventListener("resize", updateScrollState);
+  window.addEventListener("scroll", requestScrollStateUpdate, { passive: true });
+  window.addEventListener("resize", requestScrollStateUpdate);
 })();
