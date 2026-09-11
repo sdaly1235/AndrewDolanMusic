@@ -1,6 +1,6 @@
 window.siteData = {
   artistName: "Andrew Dolan",
-  tagline: "Omagh-based Irish singer-songwriter carrying original songs from intimate rooms to major stages.",
+  tagline: "Irish folk roots, a modern sound and original songs carried from pubs to music halls.",
   socialLinks: {
     spotifyArtist: "https://open.spotify.com/artist/74Vq2yie9cISoNQCZJ2Esn",
     instagram: "https://www.instagram.com/andrewdolanmusic",
@@ -14,7 +14,7 @@ window.siteData = {
     releaseDate: "21 August 2026",
     isoDate: "2026-08-21",
     duration: "3:20",
-    description: "The latest original single, carried from intimate coffee-shop performances to a week of evening airplay on Q Radio.",
+    description: "Andrew’s latest original single: an honest, road-worn song carried from intimate coffee-shop performances to a week of evening airplay on Q Radio.",
     lyric: "Scared I’ll get too old… with nothing to show.",
     spotifyUrl: "https://open.spotify.com/track/42Cjinfjtu9wANRrsWBdOe",
     spotifyEmbedUrl: "https://open.spotify.com/embed/track/42Cjinfjtu9wANRrsWBdOe?utm_source=generator",
@@ -49,6 +49,12 @@ window.siteData = {
       linkLabel: "See the radio update"
     }
   ],
+  socialFeature: {
+    title: "Where I Wanna Be — live and stripped back",
+    description: "A close-up acoustic performance marking almost two weeks since the single’s release.",
+    url: "https://www.instagram.com/reel/Dc1UKqkiOEw/",
+    image: "assets/where-i-wanna-be-reel.jpg"
+  },
   discography: [
     {
       title: "Where I Wanna Be",
@@ -140,15 +146,15 @@ window.siteData = {
     thumbnail: "assets/white-feather-poster.jpg"
   },
   pressKit: {
-    bio: "Andrew Dolan is an Omagh-based Irish singer-songwriter blending folk roots with a modern live-room sound. From pubs and coffee shops to major music halls, he has shared stages with Bonnie Tyler, Ryan McMullan, Chris Norman, The Whistlin’ Donkeys and the Bay City Rollers. His latest original single, Where I Wanna Be, arrived on 21 August 2026 and received a week of evening airplay on Q Radio.",
+    bio: "Andrew Dolan is an Irish singer-songwriter from Omagh, blending folk roots with a modern sound. From Belfast to New York and Nashville, he has shared stages with Bonnie Tyler, Ryan McMullan, Chris Norman and The Whistlin’ Donkeys. Carrying his guitar from pubs to music halls, Andrew is building a growing reputation for original music, live shows and a love for the road. His latest original single, Where I Wanna Be, arrived on 21 August 2026 and received a week of evening airplay on Q Radio.",
     location: "Omagh, Northern Ireland",
     highlight: "Waterfront Hall, Belfast",
-    pressPhoto: "assets/artist-profile.jpg",
+    pressPhoto: "assets/andrew-dolan-portrait-mono.jpg",
     links: [
       {
         label: "Artist photo",
         ariaLabel: "Open Andrew Dolan Music press photo",
-        url: "assets/artist-profile.jpg"
+        url: "assets/andrew-dolan-portrait-mono.jpg"
       },
       {
         label: "Latest single",
@@ -169,15 +175,19 @@ window.siteData = {
   },
   tourDates: [],
   merch: {
-    label: "Merch coming soon",
-    url: ""
+    title: "Made for the road.",
+    description: "Vintage-washed AD caps, available in washed black and washed sand.",
+    label: "Enquire about a cap",
+    email: "info@andrewdolanmusic.com",
+    subject: "AD cap enquiry",
+    image: "assets/andrew-dolan-caps.jpg"
   },
   gallery: [
     {
-      image: "assets/gallery-band-wide.jpg",
-      width: 593,
-      height: 315,
-      alt: "Andrew Dolan playing guitar with the band"
+      image: "assets/andrew-dolan-live-2026.jpg",
+      width: 480,
+      height: 640,
+      alt: "Andrew Dolan performing on an outdoor festival stage"
     },
     {
       image: "assets/gallery-live-room.jpg",
@@ -186,22 +196,22 @@ window.siteData = {
       alt: "Andrew Dolan performing in an intimate venue"
     },
     {
-      image: "assets/gallery-performance-01.jpg",
-      width: 240,
-      height: 320,
-      alt: "Andrew Dolan singing into a microphone"
+      image: "assets/andrew-dolan-portrait-sunlit.jpg",
+      width: 480,
+      height: 640,
+      alt: "Sunlit outdoor portrait of Andrew Dolan"
     },
     {
-      image: "assets/gallery-portrait-01.jpg",
-      width: 240,
-      height: 320,
-      alt: "Portrait of Andrew Dolan with guitar"
+      image: "assets/andrew-dolan-portrait-mono.jpg",
+      width: 480,
+      height: 640,
+      alt: "Black and white portrait of Andrew Dolan"
     },
     {
-      image: "assets/gallery-portrait-02.jpg",
+      image: "assets/gallery-performance-02.jpg",
       width: 240,
       height: 320,
-      alt: "Andrew Dolan portrait from a live session"
+      alt: "Andrew Dolan performing under stage lights"
     },
     {
       image: "assets/gallery-portrait-04.jpg",

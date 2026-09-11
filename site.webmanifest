@@ -1,7 +1,7 @@
 {
   "name": "Andrew Dolan Music",
   "short_name": "Andrew Dolan",
-  "description": "Official website for Andrew Dolan Music.",
+  "description": "Music, live highlights and official updates from Omagh singer-songwriter Andrew Dolan.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

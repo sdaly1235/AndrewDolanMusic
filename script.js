@@ -91,6 +91,12 @@
     return value;
   }
 
+  function safeEmailAddress(value) {
+    if (typeof value !== "string") return "";
+    const email = value.trim();
+    return /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email) ? email : "";
+  }
+
   function setSectionLinksVisibility(sectionId, isVisible) {
     document.querySelectorAll(`[data-section-link="${sectionId}"]`).forEach((link) => {
       link.hidden = !isVisible;
@@ -300,6 +306,22 @@
     });
   }
 
+  const reelSection = document.querySelector(".reel-section");
+  const reelLink = document.querySelector("[data-reel-link]");
+  const reelImage = document.querySelector("[data-reel-image]");
+  const socialFeature = data.socialFeature || {};
+  const safeReelUrl = safeExternalUrl(socialFeature.url);
+  const safeReelImage = safeAssetPath(socialFeature.image);
+  if (reelLink && safeReelUrl) {
+    reelLink.href = safeReelUrl;
+    reelLink.setAttribute("aria-label", `Watch ${socialFeature.title || "Andrew Dolan’s latest reel"} on Instagram`);
+    setText("[data-reel-title]", socialFeature.title);
+    setText("[data-reel-description]", socialFeature.description);
+    if (reelImage && safeReelImage) reelImage.src = safeReelImage;
+  } else if (reelSection) {
+    reelSection.hidden = true;
+  }
+
   const highlightsGrid = document.querySelector("[data-highlights]");
   if (highlightsGrid && Array.isArray(data.recentHighlights)) {
     data.recentHighlights.forEach((highlight) => {
@@ -431,11 +453,18 @@
 
   const merchSection = document.querySelector("[data-merch-section]");
   const merchLink = document.querySelector("[data-merch-link]");
-  const safeMerchUrl = data.merch ? safeExternalUrl(data.merch.url) : "";
-  if (data.merch && data.merch.label && safeMerchUrl) {
+  const merchImage = document.querySelector("[data-merch-image]");
+  const merch = data.merch || {};
+  const safeMerchEmail = safeEmailAddress(merch.email);
+  const safeMerchImage = safeAssetPath(merch.image);
+  if (merchSection && merchLink && merch.label && safeMerchEmail) {
     merchSection.hidden = false;
-    merchLink.textContent = data.merch.label;
-    merchLink.href = safeMerchUrl;
+    setText("[data-merch-title]", merch.title);
+    setText("[data-merch-description]", merch.description);
+    merchLink.textContent = merch.label;
+    merchLink.href = `mailto:${safeMerchEmail}?subject=${encodeURIComponent(merch.subject || "Merch enquiry")}`;
+    merchLink.setAttribute("aria-label", `${merch.label} by email`);
+    if (merchImage && safeMerchImage) merchImage.src = safeMerchImage;
   }
 
   const gallery = document.querySelector("[data-gallery]");
